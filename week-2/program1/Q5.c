@@ -1,9 +1,15 @@
-/* CS261- Assignment 1 - Q.5*/
-/* Name:
- * Date:
- * Solution description:
- */
- 
+// Author: Dane Schoonover
+// Date Created: 10/9/2015
+// Last Modification Date: 0/9/2015
+// File name: Q0.c
+// Overview:
+//    This program demonstrates character string manipulation by converting characters
+//    to uppercase and lowercase.
+// Input:
+//    This program has no input.
+// Output:
+//    The output is a sticky caps version of a string.
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,7 +30,7 @@ int getLength(char *str){
     while(str[length]!='\0'){
         length++;
     }
-    
+
     return length;
 }
 
@@ -35,7 +41,7 @@ void sticky(char* word, int strLength){
         // If letter index is odd, change it to lowercase
         if ((i%2 != 0) && word[i] >= 'A' && word[i] <= 'Z')
             word[i] = toLowerCase(word[i]);
-        
+
         // Else it's even and change to uppercase
         else if ((i%2 == 0) && word[i] >= 'a' && word[i] <= 'z')
             word[i] = toUpperCase(word[i]);
@@ -48,16 +54,16 @@ int main(){
     char str[20];
     printf("Enter a legal string\n");
     scanf("%19s", str);
-    
+
     // Get length of string
     int strLength = getLength(str);
     printf("String length is: %d\n", strLength);
 
     /*Call sticky*/
     sticky(str, strLength);
-    
+
     /*Print the new word*/
     printf("%s\n", str);
-    
+
     return 0;
 }

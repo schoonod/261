@@ -1,8 +1,14 @@
-/* CS261- Assignment 1 - Q. 0*/
-/* Name:
- * Date:
- * Solution description:
- */
+// Author: Dane Schoonover
+// Date Created: 10/9/2015
+// Last Modification Date: 0/9/2015
+// File name: Q0.c
+// Overview:
+//    This program prints pointer addresses and values.
+// Input:
+//    This program has no input.
+// Output:
+//    The output will be the value pointed to by the pointer used, the address
+//    it points to, and the address of the pointer itself.
 
 #include <stdio.h>
 #include <stdlib.h>
