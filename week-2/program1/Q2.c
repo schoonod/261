@@ -36,10 +36,8 @@ int main(){
     /*Print the values of x, y and z*/
     printf("x=%d, y=%d, z=%d\n", x, y, z);
 
-
     /*Call foo() appropriately, passing x,y,z as parameters*/
     foo(&x, &y, z);
-
 
     /*Print the value returned by foo*/
     printf("%d\n", foo(&x, &y, z));
