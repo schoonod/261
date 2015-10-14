@@ -5,26 +5,26 @@ Table of Contents
 		linkedList
   Abstract Data Types w/ Implementation
     Bags
-        bagDynamicArray
+      bagDynamicArray
     Stacks
-        stackDynamicArray
-				stackLinkedList
+      stackDynamicArray
+			stackLinkedList
 		Queue
-				queueLinkedList
-				queueDynamicArray
+			queueLinkedList
+			queueDynamicArray
 		Deque
-				dequeuFloatingDynamicArray
-				dequeDoublyLinkedList
+			dequeuFloatingDynamicArray
+			dequeDoublyLinkedList
 Sorting
-    quickSort
-    mergeSort
-    shellSort
-    bubbleSort
+  quickSort
+  mergeSort
+  shellSort
+  bubbleSort
 String Manipulation
-    toUpper
-    toLower
-    oddEven
-    caseCheck
+  toUpper
+  toLower
+  oddEven
+  caseCheck
 */
 
 
