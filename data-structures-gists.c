@@ -1,30 +1,30 @@
 /*
 Table of Contents
-    Data Structures
-        dynamicArray
-				linkedList
-    Abstract Data Types w/ Implementation
-        Bags
-            bagDynamicArray
-        Stacks
-            stackDynamicArray
-						stackLinkedList
-				Queue
-						queueLinkedList
-						queueDynamicArray
-				Deque
-						dequeuFloatingDynamicArray
-						dequeDoublyLinkedList
-    Sorting
-        quickSort
-        mergeSort
-        shellSort
-        bubbleSort
-    String Manipulation
-        toUpper
-        toLower
-        oddEven
-        caseCheck
+	Data Structures
+  	dynamicArray
+		linkedList
+  Abstract Data Types w/ Implementation
+    Bags
+        bagDynamicArray
+    Stacks
+        stackDynamicArray
+				stackLinkedList
+		Queue
+				queueLinkedList
+				queueDynamicArray
+		Deque
+				dequeuFloatingDynamicArray
+				dequeDoublyLinkedList
+Sorting
+    quickSort
+    mergeSort
+    shellSort
+    bubbleSort
+String Manipulation
+    toUpper
+    toLower
+    oddEven
+    caseCheck
 */
 
 
