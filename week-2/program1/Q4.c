@@ -19,16 +19,20 @@ struct student{
 };
 
 void sort(struct student* students, int n){
-    // Sort the n students based on their score
-    // Citation: The C Programming Language (Kernighan and Ritchie), pg. 55, shell sort
+		// Sort the n students based on their score
+    // This sorts the scores but does not sort the students
     int gap;
     int temp;
+		int temp2;
     for (gap = n/2; gap > 0; gap /= 2) {
         for (int i = gap; i < n; i++) {
             for (int j = i-gap; j>=0 && students[j].score > students[j+gap].score; j-=gap) {
                 temp = students[j].score;
+								temp2 = students[j].id;
                 students[j].score = students[j+gap].score;
+								students[j].id = students[j+gap].id;
                 students[j+gap].score = temp;
+								students[j+gap].id = temp2;
             }
         }
     }
