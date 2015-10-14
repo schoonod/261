@@ -207,24 +207,44 @@ int isEmptyDynArray (struct DynArr * da) {
 //////////////////////
 // @stackLinkedList //
 //////////////////////
-struct StackLinkedList {
-	struct link *firstLink;
+struct ListStack {
+	struct Link *firstLink;
 }
 
-struct stackInitLinkedList (stackLinkedList s) {
+struct listStackInit (ListStack s) {
 	s->firstLink = 0;
 }
 
 void pushListStack(struct ListStack *s, TYPE d){
-	struct Link *newLink = malloc...;
-	assert..
-	newLink->val = d;
-	newLink->next = s->firstLink;
-	s->firstLink = newLink;
-	// allocate a new link
-	// set new link value
-	// set new link pointer to previous link
-	// change head to point to the new link
+	struct Link *newLink = (struct Link *) malloc(sizseof(struct Link));		// allocate a new Link
+	assert(newLink != 0);
+	newLink->val = d;										// set new Link value
+	newLink->next = s->firstLink;				// set new Link pointer to previous Link
+	s->firstLink = newLink;							// change head to point to the new Link
+}
+
+///////////////////////
+// @queueLinkedList ///
+///////////////////////
+struct listQueue {
+	struct Link *firstLink;							// Always points to sentinel
+	struct Link *lastLink;
+}
+
+void listQueueInit(struct listQueue *q) {
+	struct Link *lnk = (struct Link *) malloc(sizeof(struct Link));
+	assert(lnk != 0); /* lnk is the sentinel */
+	lnk->next = 0;
+	q->firstLink = q->lastLink = lnk;
+}
+
+void addBacklistQueue(struct listQueue *q, TYPE e) {
+	struct Link *lnk = (struct Link *) malloc(sizeof(struct Link));
+	assert(lnk != 0);
+	lnk->next = 0;
+	lnk->value = e;
+	q->lastLink->next = lnk;
+	q->lastlink = lnk;
 }
 
 
