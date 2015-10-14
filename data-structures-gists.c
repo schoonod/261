@@ -88,34 +88,34 @@ void _setCapDynArr(struct DynArr *v, int newCap) {
 }
 
 TYPE getDynArr (struct DynArr * da, int position) {
-    assert(da->size <= position);
-    return da->data[position];
+  assert(da->size <= position);
+  return da->data[position];
 }
 
 void putDynArr(struct DynArr * da, int position, TYPEvalue) {
-    assert(position < da->capacity);
-    da->data[position] = TYPEvalue;
+	assert(position < da->capacity);
+	da->data[position] = TYPEvalue;
 }
 
 // Swap two array positions
 void swapDynArr (struct DynArr * da, int i, int j) {
-    assert((i>=0 && i < da->size) && (j >=0 && j < da->size));
-    TYPE temp;
-    temp = da->data[i];
-    da->data[i] = da->data[j];
-    da->data[j] = temp;
+	assert((i>=0 && i < da->size) && (j >=0 && j < da->size));
+	TYPE temp;
+  temp = da->data[i];
+  da->data[i] = da->data[j];
+  da->data[j] = temp;
 }
 
 // Removes the value held at a specific location and moves remaining elements
 // left 1
 void _dynArrayRemoveAt (struct DynArr * da, int index) {
-    assert(index >=0 && index < da->size);
-    da->data[index] = NULL;
-    // move the remaining values back
-    for(index; index < da->size; index++) {
-   	  da->data[index] = da->data[index+1];
-    }
-    da->size = index;
+  assert(index >=0 && index < da->size);
+  da->data[index] = NULL;
+  // move the remaining values back
+  for(index; index < da->size; index++) {
+  	da->data[index] = da->data[index+1];
+  }
+  da->size = index;
 }
 
 /////////////////
@@ -142,12 +142,12 @@ struct Link {
 */
 
 void addDynArray (struct DynArr * da, TYPE e) {
-    if(da->size <= da->capacity){
-   	  addDynArr(da, e);
-    } else{
-   	  _setCapacityDynArr(da); //doubles capacity according to comment above
-   	  addDynArr(da, e);
-    }
+  if(da->size <= da->capacity){
+ 	  addDynArr(da, e);
+  } else{
+ 	  _setCapacityDynArr(da); //doubles capacity according to comment above
+ 	  addDynArr(da, e);
+  }
 }
 
 int containsDynArr (struct DynArr * da, TYPE e) {
@@ -169,7 +169,7 @@ void removeDynArr (struct DynArr * dy, TYPE test) {
 }
 
 int sizeArray (struct arrayBagStack * b) {
-    return b->count;
+  return b->count;
 }
 
 ///////////////////////
@@ -177,18 +177,18 @@ int sizeArray (struct arrayBagStack * b) {
 ///////////////////////
 // Add to top of array
 void pushDynArray (struct DynArr * da, TYPE e) {
-    if(da->size <= da->capacity){
-   	  addDynArr(da, e);
-    } else{
-   	  _setCapacityDynArr(da); //doubles capacity according to comment above
-   	  addDynArr(da, e);
-    }
+  if(da->size <= da->capacity){
+ 	  addDynArr(da, e);
+  } else{
+ 	  _setCapacityDynArr(da); //doubles capacity according to comment above
+ 	  addDynArr(da, e);
+  }
 }
 
 // Remove from top of array
 void popDynArray (struct DynArr * da) {
-    removeAtDynArr(da,da->size);
-    da->size--;
+  removeAtDynArr(da,da->size);
+  da->size--;
 }
 
 // Return top of array
@@ -198,10 +198,10 @@ TYPE topDynArray (struct DynArr * da) {
 }
 
 int isEmptyDynArray (struct DynArr * da) {
-    if(da->size == 0)
-   	 return 1;
-    else
-   	 return 0;
+  if(da->size == 0)
+ 	 return 1;
+  else
+ 	 return 0;
 }
 
 //////////////////////
@@ -296,35 +296,35 @@ void dequeFree (struct deque *d) {
 // @QuickSort //
 ////////////////
 void quickSort (double storage [ ], int n) {
- quickSortInternal (storage, 0, n-1); }
+	quickSortInternal (storage, 0, n-1); }
 
 void quickSortInternal (double storage [ ], int low, int high) {
- if (low >= high) return; // base case
- int pivot = (low + high)/2; // one of many techniques
- pivot = partition(storage, low, high, pivot);
- quickSortInternal (storage, low, pivot-1); // first recursive call
- quickSortInternal (storage, pivot+1, high); // second recursive call
+	if (low >= high) return; // base case
+	int pivot = (low + high)/2; // one of many techniques
+ 	pivot = partition(storage, low, high, pivot);
+ 	quickSortInternal (storage, low, pivot-1); // first recursive call
+ 	quickSortInternal (storage, pivot+1, high); // second recursive call
  }
 
 ////////////////
 // @MergeSort //
 ////////////////
 void mergeSort (double data [ ], int n) {
- double * temp = (double *) malloc (n * sizeof(double));
- assert (temp != 0); /* make sure allocation worked */
- mergeSortInternal (data, 0, n-1, temp);
- free (temp);
- }
+	double * temp = (double *) malloc (n * sizeof(double));
+	assert (temp != 0); /* make sure allocation worked */
+	mergeSortInternal (data, 0, n-1, temp);
+	free (temp);
+}
 
 void mergeSortInternal (double data [ ], int low, int high, double temp [ ]) {
- int i, mid;
- if (low >= high) return; /* base case */
- mid = (low + high) / 2;
- mergeSortInternal(data, low, mid, temp); /* first recursive call */
- mergeSortInternal(data, mid+1, high, temp); /* second recursive call */
- merge(data, low, mid, high, temp); /* merge into temp */
- for (i = low; i <= high; i++) /* copy merged values back */
- data[i] = temp[i];
+	int i, mid;
+	if (low >= high) return; /* base case */
+	mid = (low + high) / 2;
+	mergeSortInternal(data, low, mid, temp); /* first recursive call */
+	mergeSortInternal(data, mid+1, high, temp); /* second recursive call */
+	merge(data, low, mid, high, temp); /* merge into temp */
+	for (i = low; i <= high; i++) /* copy merged values back */
+	data[i] = temp[i];
 }
 
 // needs final merge function
@@ -333,19 +333,19 @@ void mergeSortInternal (double data [ ], int low, int high, double temp [ ]) {
 // @ShellSort //
 ////////////////
 void sort(int* number, int n) {
-    // Sort the given array number, of length n
-    // Citation, The C Programming Language (Kernighan, Ritchie), pg. 55, shell sort
-    int gap;
-    int temp;
-    for (gap = n/2; gap > 0; gap /= 2) {
-        for (int i = gap; i < n; i++) {
-            for (int j = i-gap; j>=0 && number[j] > number[j+gap]; j-=gap) {
-                temp = number[j];
-                number[j] = number[j+gap];
-                number[j+gap] = temp;
-            }
-        }
+  // Sort the given array number, of length n
+  // Citation, The C Programming Language (Kernighan, Ritchie), pg. 55, shell sort
+  int gap;
+  int temp;
+  for (gap = n/2; gap > 0; gap /= 2) {
+    for (int i = gap; i < n; i++) {
+      for (int j = i-gap; j>=0 && number[j] > number[j+gap]; j-=gap) {
+        temp = number[j];
+        number[j] = number[j+gap];
+        number[j+gap] = temp;
+      }
     }
+  }
 }
 /////////////////
 // @BubbleSort //
@@ -368,12 +368,12 @@ void bubbleSort (double data [ ], int n) {
 /*------------------------------------------------------------------------------------------------------------*/
 // @toUpper - Convert ch to upper case, assuming it is in lower case currently /
 char toUpperCase(char ch){
-     return ch-'a'+'A';
+	return ch-'a'+'A';
 }
 
 // @toLower - Converts ch to lower case, assuming it is in upper case currently/
 char toLowerCase(char ch){
-     return ch-'A'+'a';
+	return ch-'A'+'a';
 }
 
 // @oddEven - Check if even or odd //
