@@ -2,11 +2,19 @@
 Table of Contents
     Data Structures
         dynamicArray
+				linkedList
     Abstract Data Types w/ Implementation
         Bags
             bagDynamicArray
         Stacks
             stackDynamicArray
+						stackLinkedList
+				Queue
+						queueLinkedList
+						queueDynamicArray
+				Deque
+						dequeuFloatingDynamicArray
+						dequeDoublyLinkedList
     Sorting
         quickSort
         mergeSort
@@ -69,7 +77,6 @@ void addVal(struct DynArr *v, TYPE val) {
 	v->size++;
 }
 
-
 void _setCapDynArr(struct DynArr *v, int newCap) {
   struct DynArr new;
   initDynArr(&new, newCap);
@@ -111,6 +118,13 @@ void _dynArrayRemoveAt (struct DynArr * da, int index) {
     da->size = index;
 }
 
+/////////////////
+// @linkedList //
+/////////////////
+struct Link {
+	TYPE val;
+	struct Link *next;
+}
 /*------------------------------------------------------------------------------------------------------------*/
 // @ABSTRACT DATA TYPES WITH IMPLEMENTATIONS
 /*------------------------------------------------------------------------------------------------------------*/
@@ -189,6 +203,92 @@ int isEmptyDynArray (struct DynArr * da) {
     else
    	 return 0;
 }
+
+//////////////////////
+// @stackLinkedList //
+//////////////////////
+struct StackLinkedList {
+	struct link *firstLink;
+}
+
+struct stackInitLinkedList (stackLinkedList s) {
+	s->firstLink = 0;
+}
+
+void pushListStack(struct ListStack *s, TYPE d){
+	struct Link *newLink = malloc...;
+	assert..
+	newLink->val = d;
+	newLink->next = s->firstLink;
+	s->firstLink = newLink;
+	// allocate a new link
+	// set new link value
+	// set new link pointer to previous link
+	// change head to point to the new link
+}
+
+
+/////////////////////////////////
+// @dequeuFloatingDynamicArray //
+/////////////////////////////////
+struct deque {
+	TYPE * data;
+ 	int capacity;
+ 	int size;
+ 	int start;
+};
+
+void dequeInit (struct deque *d, int initCapacity) {
+ 	d->size = d->start = 0;
+ 	d->capacity = initCapacity; assert(initCapacity > 0);
+ 	d->data = (TYPE *) malloc(initCapacity * sizeof(TYPE));
+ 	assert(d->data != 0);
+}
+
+int dequeSize (struct deque *d) {
+	return d->size;
+}
+
+void _dequeSetCapacity (struct deque *d, int newCap) {
+	int i;
+	/* Create a new underlying array*/
+	TYPE *newData = (TYPE*)malloc(sizeof(TYPE)*newCap);
+	assert(newData != 0);
+	/* Copy elements to new array */
+	int j = d->start;
+		for(i = 0; i < d->size; i++) {
+			newData[i] = d->data[j];
+			j++;
+			if(j >= d->capacity)
+			j = 0;
+		}
+	/*  Delete the old array*/
+	free(d->data);
+	/* update capacity and size and data*/
+	d->data = newData;
+	d->capacity = newCap;
+	d->beg = 0;
+}
+
+void dequeAddFront (struct deque *d, TYPE newValue) {
+	if (d->size >= d->capacity) {
+		_dequeSetCapacity(d, 2*d->capacity);
+	}
+}
+
+void dequeAddBack (struct deque *d, TYPE newValue) {
+ 	if (d->size >= d->capacity) {
+		_dequeSetcapacity(d, 2* d->capacity);
+	}
+}
+
+
+void dequeFree (struct deque *d) {
+ 	free(d->data);
+ 	d->size = 0;
+ 	d->capacity = 0;
+}
+
 /*------------------------------------------------------------------------------------------------------------*/
 // @SORTING
 /*------------------------------------------------------------------------------------------------------------*/
