@@ -26,7 +26,6 @@ String Manipulation
 /*----------------------------------------------------------------------------*/
 // @DynamicArray
 /*----------------------------------------------------------------------------*/
-
 /*.h symbolic constant:
     # ifndef TYPE
     # define TYPE int
@@ -112,7 +111,6 @@ void _dynArrayRemoveAt (struct DynArr * da, int index) {
 
 
 /* @BagDynamicArray *///////////////////////////////////////////////////////////
-
 /*
 .h macro for generalized container:
     # ifndef EQ
@@ -156,7 +154,6 @@ int sizeArray (struct arrayBagStack * b) {
 
 
 /* @StackDynamicArray */////////////////////////////////////////////////////////
-
 // Add to top of array
 void pushDynArray (struct DynArr * da, TYPE e) {
   if(da->size <= da->capacity){
@@ -187,7 +184,7 @@ int isEmptyDynArray (struct DynArr * da) {
 }
 
 
-// @DequeuDynamicArray /////////////////////////////////////////////////
+// @DequeDynamicArray /////////////////////////////////////////////////
 struct deque {
 	TYPE * data;
  	int capacity;
@@ -228,23 +225,62 @@ void _dequeSetCapacity (struct deque *d, int newCap) {
 }
 
 void dequeAddFront (struct deque *d, TYPE newValue) {
-	if (d->size >= d->capacity) {
+	if (d->size >= d->capacity)
 		_dequeSetCapacity(d, 2*d->capacity);
+
+	if (start == 0){
+		d->data[capacity - 1] = newValue;
+		start = capacity - 1
 	}
+	else {
+		d->data[start - 1] = newValue
+		start--
+	}
+	size++;
 }
+
 
 void dequeAddBack (struct deque *d, TYPE newValue) {
- 	if (d->size >= d->capacity) {
+	int index;
+	if (d->size >= d->capacity)
 		_dequeSetcapacity(d, 2* d->capacity);
-	}
+	index = d->start + d->size);			// empty position after element at the back of the deque
+		if (index >= d->capacity)
+			index -= d->capacity;
+	d->data[index] = newValue;
+	d->size++;
 }
 
+TYPE dequeFront (struct deque *d) {
+	if (size > 0)
+		return d->data[start];
+}
 
 void dequeFree (struct deque *d) {
  	free(d->data);
  	d->size = 0;
  	d->capacity = 0;
 }
+
+TYPE dequeBack (struct deque *d) {
+	int index = d->start + d->size -1;		// element at the back of the deque
+	if (index > d->capacity)
+		index -= d->capacity;
+	return d->data[index];
+}
+
+void dequeRemoveFront (struct deque *d) {
+	if (d->size > 0){
+		d->start += 1
+		d->size -= 1;
+	}
+}
+
+void dequeRemoveBack (struct deque *d) {
+	if (d->size > 0)
+		d-size -= 1;
+}
+
 
 /*----------------------------------------------------------------------------*/
 // @LinkedList //
@@ -253,7 +289,6 @@ struct Link {
 	TYPE val;
 	struct Link *next;
 }
-
 
 // @StackLinkedList ////////////////////////////////////////////////////////////
 struct ListStack {
@@ -267,9 +302,35 @@ struct listStackInit (ListStack s) {
 void pushListStack(struct ListStack *s, TYPE d){
 	struct Link *newLink = (struct Link *) malloc(sizseof(struct Link));		// allocate a new Link
 	assert(newLink != 0);
-	newLink->val = d;										// set new Link value
-	newLink->next = s->firstLink;				// set new Link pointer to previous Link
-	s->firstLink = newLink;							// change head to point to the new Link
+	newLink->val = d;										// set newLink value
+	newLink->next = s->firstLink;				// set newLink pointer to what firstLink was pointing to (next link or 0)
+	s->firstLink = newLink;							// change newLink to point to  newLink
+}
+
+TYPE linkedListStackTop (struct linkedListStack *s) {
+	if(s->firstLink != NULL)
+		return s->firstLink->value;
+	return NULL;
+}
+
+void linkedListStackPop (struct linkedListStack *s) {
+	if(s->firstLink != NULL){
+		struct link* temp = s->firstLink;		// create temporary link to point at what firstLink points to
+		s->firstLink = temp->next;					// reassign firstLink to what firstLink was pointing to n
+		free(temp);													// free the address that firstLink was pointing to
+	}
+}
+
+void linkedListStackFree (struct linkedListStack *s) {
+	while (!linkedListStackIsEmpty(s))
+		linkedListStackPop(s);
+}
+
+int linkedListStackIsEmpty (struct linkedListStack *s) {
+
+	if(s->firstLink != NULL)
+		return 1;
+	return 0;
 }
 
 // @QueueLinkedList ////////////////////////////////////////////////////////////
@@ -280,7 +341,8 @@ struct listQueue {
 
 void listQueueInit(struct listQueue *q) {
 	struct Link *lnk = (struct Link *) malloc(sizeof(struct Link));
-	assert(lnk != 0); /* lnk is the sentinel */
+		/* this initial lnk is the sentinel link */
+	assert(lnk != 0);
 	lnk->next = 0;
 	q->firstLink = q->lastLink = lnk;
 }
@@ -288,10 +350,30 @@ void listQueueInit(struct listQueue *q) {
 void addBacklistQueue(struct listQueue *q, TYPE e) {
 	struct Link *lnk = (struct Link *) malloc(sizeof(struct Link));
 	assert(lnk != 0);
-	lnk->next = 0;
 	lnk->value = e;
-	q->lastLink->next = lnk;
-	q->lastlink = lnk;
+	lnk->next = q->lastLink->next;			// or lnk->next = 0;
+	q->lastLink->next = lnk;						// Point the lastLink to the new link (the new lastLink)
+	q->lastlink = lnk;									// Reassign the lastLink pointer to the newLink
+}
+
+TYPE listQueueFront (struct listQueue *q) {
+	if(q->firstLink != NULL)
+		return q->firstLink->value; 
+
+}
+
+void listQueueRemoveFront (struct listQueue *q) {
+	if(q->firstLink != NULL){
+		struct link* temp = q->firstLink;
+		q->firstLink = temp->link;
+		free(temp);
+	}
+
+
+int listQueueIsEmpty (struct listQueue *q) {
+	if(q->firstLink != NULL)
+		return 1;
+	return 0;
 }
 
 // @DequeLinkedList(doubly) ////////////////////////////////////////////////////
