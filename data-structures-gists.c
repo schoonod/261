@@ -1,20 +1,13 @@
 /*
 Table of Contents
-	Data Structures
-  	dynamicArray
-		linkedList
-  Abstract Data Types w/ Implementation
-    Bags
-      bagDynamicArray
-    Stacks
-      stackDynamicArray
-			stackLinkedList
-		Queue
-			queueLinkedList
-			queueDynamicArray
-		Deque
-			dequeuFloatingDynamicArray
-			dequeDoublyLinkedList
+DynamicArray
+	Bag
+	Stack
+	Deque
+LinkedList
+	Stack
+	Queue
+	Deque (doubly)
 Sorting
   quickSort
   mergeSort
@@ -28,14 +21,13 @@ String Manipulation
 */
 
 
-/*------------------------------------------------------------------------------------------------------------*/
-// @DATA STRUCTURES
-/*------------------------------------------------------------------------------------------------------------*/
-///////////////////
-// @dynamicArray //
-///////////////////
-/*
-.h symbolic constant:
+
+/* @DATA STRUCTURES
+/*----------------------------------------------------------------------------*/
+// @DynamicArray
+/*----------------------------------------------------------------------------*/
+
+/*.h symbolic constant:
     # ifndef TYPE
     # define TYPE int
     ...
@@ -118,19 +110,9 @@ void _dynArrayRemoveAt (struct DynArr * da, int index) {
   da->size = index;
 }
 
-/////////////////
-// @linkedList //
-/////////////////
-struct Link {
-	TYPE val;
-	struct Link *next;
-}
-/*------------------------------------------------------------------------------------------------------------*/
-// @ABSTRACT DATA TYPES WITH IMPLEMENTATIONS
-/*------------------------------------------------------------------------------------------------------------*/
-//////////////////////
-// @bagDynamicArray //
-//////////////////////
+
+/* @BagDynamicArray *///////////////////////////////////////////////////////////
+
 /*
 .h macro for generalized container:
     # ifndef EQ
@@ -172,9 +154,9 @@ int sizeArray (struct arrayBagStack * b) {
   return b->count;
 }
 
-///////////////////////
-// @stackDynamicArray //
-///////////////////////
+
+/* @StackDynamicArray */////////////////////////////////////////////////////////
+
 // Add to top of array
 void pushDynArray (struct DynArr * da, TYPE e) {
   if(da->size <= da->capacity){
@@ -204,53 +186,8 @@ int isEmptyDynArray (struct DynArr * da) {
  	 return 0;
 }
 
-//////////////////////
-// @stackLinkedList //
-//////////////////////
-struct ListStack {
-	struct Link *firstLink;
-}
 
-struct listStackInit (ListStack s) {
-	s->firstLink = 0;
-}
-
-void pushListStack(struct ListStack *s, TYPE d){
-	struct Link *newLink = (struct Link *) malloc(sizseof(struct Link));		// allocate a new Link
-	assert(newLink != 0);
-	newLink->val = d;										// set new Link value
-	newLink->next = s->firstLink;				// set new Link pointer to previous Link
-	s->firstLink = newLink;							// change head to point to the new Link
-}
-
-///////////////////////
-// @queueLinkedList ///
-///////////////////////
-struct listQueue {
-	struct Link *firstLink;							// Always points to sentinel
-	struct Link *lastLink;
-}
-
-void listQueueInit(struct listQueue *q) {
-	struct Link *lnk = (struct Link *) malloc(sizeof(struct Link));
-	assert(lnk != 0); /* lnk is the sentinel */
-	lnk->next = 0;
-	q->firstLink = q->lastLink = lnk;
-}
-
-void addBacklistQueue(struct listQueue *q, TYPE e) {
-	struct Link *lnk = (struct Link *) malloc(sizeof(struct Link));
-	assert(lnk != 0);
-	lnk->next = 0;
-	lnk->value = e;
-	q->lastLink->next = lnk;
-	q->lastlink = lnk;
-}
-
-
-/////////////////////////////////
-// @dequeuFloatingDynamicArray //
-/////////////////////////////////
+// @DequeuDynamicArray /////////////////////////////////////////////////
 struct deque {
 	TYPE * data;
  	int capacity;
@@ -309,9 +246,111 @@ void dequeFree (struct deque *d) {
  	d->capacity = 0;
 }
 
-/*------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+// @LinkedList //
+/*----------------------------------------------------------------------------*/
+struct Link {
+	TYPE val;
+	struct Link *next;
+}
+
+
+// @StackLinkedList ////////////////////////////////////////////////////////////
+struct ListStack {
+	struct Link *firstLink;
+}
+
+struct listStackInit (ListStack s) {
+	s->firstLink = 0;
+}
+
+void pushListStack(struct ListStack *s, TYPE d){
+	struct Link *newLink = (struct Link *) malloc(sizseof(struct Link));		// allocate a new Link
+	assert(newLink != 0);
+	newLink->val = d;										// set new Link value
+	newLink->next = s->firstLink;				// set new Link pointer to previous Link
+	s->firstLink = newLink;							// change head to point to the new Link
+}
+
+// @QueueLinkedList ////////////////////////////////////////////////////////////
+struct listQueue {
+	struct Link *firstLink;							// Always points to sentinel
+	struct Link *lastLink;
+}
+
+void listQueueInit(struct listQueue *q) {
+	struct Link *lnk = (struct Link *) malloc(sizeof(struct Link));
+	assert(lnk != 0); /* lnk is the sentinel */
+	lnk->next = 0;
+	q->firstLink = q->lastLink = lnk;
+}
+
+void addBacklistQueue(struct listQueue *q, TYPE e) {
+	struct Link *lnk = (struct Link *) malloc(sizeof(struct Link));
+	assert(lnk != 0);
+	lnk->next = 0;
+	lnk->value = e;
+	q->lastLink->next = lnk;
+	q->lastlink = lnk;
+}
+
+// @DequeLinkedList(doubly) ////////////////////////////////////////////////////
+struct dlink {
+	TYPE value;
+	struct dlink * next;
+	struct dlink * prev;
+};
+
+struct linkedList {
+	int size;
+	struct dlink * frontSentinel;
+	struct dlink * backSentinel;
+};
+
+void LinkedListInit (struct linkedList *q) {
+	q->frontSentinel = malloc(sizeof(struct dlink));
+	assert(q->frontSentinel != 0);
+	q->backSentinel = malloc(sizeof(struct dlink));
+	assert(q->backSentinel);
+	q->frontSentinel->next = q->backSentinel;
+	q->backSentinel->prev = q->frontSentinell;
+	q->frontSentinel->prev = 0;
+	q->backSentinel->next = 0;
+	q->size = 0;
+}
+
+void linkedListFree (struct linkedList *q) {
+	while (q->size > 0)
+	linkedListRemoveFront(q);
+	free (q->frontSentinel);
+	free (q->backSentinel);
+	q->frontSentinel = q->backSentinel = null;
+}
+
+void LinkedListAddFront (struct linkedList *q, TYPE e) {
+	_addBefore(q, q->frontSentinel_>next, e);
+}
+
+void LinkedListAddback (struct linkedList *q, TYPE e) {
+	_addBefore(q, q->backSentinel, e); }
+void linkedListRemoveFront (struct linkedList *q) {
+	assert(! linkedListIsEmpty(q));
+	_removeLink (q, q->frontSentinel->next);
+}
+
+void LinkedListRemoveBack (struct linkedList *q) {
+	assert(! linkedListIsEmpty(q));
+	_removeLink (q, q->backSentinel->prev);
+}
+int LinkedListIsEmpty (struct linkedList *q) {
+	return q->size == 0;
+}
+
+
+
+/*----------------------------------------------------------------------------*/
 // @SORTING
-/*------------------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------/----------------------*/
 ////////////////
 // @QuickSort //
 ////////////////
@@ -326,9 +365,8 @@ void quickSortInternal (double storage [ ], int low, int high) {
  	quickSortInternal (storage, pivot+1, high); // second recursive call
  }
 
-////////////////
-// @MergeSort //
-////////////////
+// @MergeSort //////////////////////////////////////////////////////////////////
+
 void mergeSort (double data [ ], int n) {
 	double * temp = (double *) malloc (n * sizeof(double));
 	assert (temp != 0); /* make sure allocation worked */
@@ -349,9 +387,8 @@ void mergeSortInternal (double data [ ], int low, int high, double temp [ ]) {
 
 // needs final merge function
 
-////////////////
-// @ShellSort //
-////////////////
+
+// @ShellSort //////////////////////////////////////////////////////////////////
 void sort(int* number, int n) {
   // Sort the given array number, of length n
   // Citation, The C Programming Language (Kernighan, Ritchie), pg. 55, shell sort
@@ -367,9 +404,8 @@ void sort(int* number, int n) {
     }
   }
 }
-/////////////////
-// @BubbleSort //
-/////////////////
+
+// @BubbleSort /////////////////////////////////////////////////////////////////
 void bubbleSort (double data [ ], int n) {
   for (int i = n-1; i > 0; i--) {
     for (int j = 0; j < i; j++) {
@@ -383,9 +419,9 @@ void bubbleSort (double data [ ], int n) {
   // array is sorted
 }
 
-/*------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 // STRING MANIPULATION
-/*------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 // @toUpper - Convert ch to upper case, assuming it is in lower case currently /
 char toUpperCase(char ch){
 	return ch-'a'+'A';
