@@ -358,7 +358,7 @@ void addBacklistQueue(struct listQueue *q, TYPE e) {
 
 TYPE listQueueFront (struct listQueue *q) {
 	if(q->firstLink != NULL)
-		return q->firstLink->value; 
+		return q->firstLink->value;
 
 }
 
