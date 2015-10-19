@@ -1,0 +1,248 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		710C09DD1BD4180300514573 /* dynArray.c in Sources */ = {isa = PBXBuildFile; fileRef = 710C09D91BD4180300514573 /* dynArray.c */; };
+		710C09E91BD455B300514573 /* stackapp.c in Sources */ = {isa = PBXBuildFile; fileRef = 710C09E81BD455B300514573 /* stackapp.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		710C09CD1BD417F200514573 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		710C09CF1BD417F200514573 /* Amortized Analysis and Dynamic Array Stack Application */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Amortized Analysis and Dynamic Array Stack Application"; sourceTree = BUILT_PRODUCTS_DIR; };
+		710C09D91BD4180300514573 /* dynArray.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dynArray.c; path = ../../dynArray.c; sourceTree = "<group>"; };
+		710C09DA1BD4180300514573 /* dynArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dynArray.h; path = ../../dynArray.h; sourceTree = "<group>"; };
+		710C09E81BD455B300514573 /* stackapp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stackapp.c; path = ../../stackapp.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		710C09CC1BD417F200514573 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		710C09C61BD417F200514573 = {
+			isa = PBXGroup;
+			children = (
+				710C09D11BD417F200514573 /* Amortized Analysis and Dynamic Array Stack Application */,
+				710C09D01BD417F200514573 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		710C09D01BD417F200514573 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				710C09CF1BD417F200514573 /* Amortized Analysis and Dynamic Array Stack Application */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		710C09D11BD417F200514573 /* Amortized Analysis and Dynamic Array Stack Application */ = {
+			isa = PBXGroup;
+			children = (
+				710C09E81BD455B300514573 /* stackapp.c */,
+				710C09D91BD4180300514573 /* dynArray.c */,
+				710C09DA1BD4180300514573 /* dynArray.h */,
+			);
+			path = "Amortized Analysis and Dynamic Array Stack Application";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		710C09CE1BD417F200514573 /* Amortized Analysis and Dynamic Array Stack Application */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 710C09D61BD417F200514573 /* Build configuration list for PBXNativeTarget "Amortized Analysis and Dynamic Array Stack Application" */;
+			buildPhases = (
+				710C09CB1BD417F200514573 /* Sources */,
+				710C09CC1BD417F200514573 /* Frameworks */,
+				710C09CD1BD417F200514573 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Amortized Analysis and Dynamic Array Stack Application";
+			productName = "Amortized Analysis and Dynamic Array Stack Application";
+			productReference = 710C09CF1BD417F200514573 /* Amortized Analysis and Dynamic Array Stack Application */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		710C09C71BD417F200514573 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = Dane;
+				TargetAttributes = {
+					710C09CE1BD417F200514573 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+				};
+			};
+			buildConfigurationList = 710C09CA1BD417F200514573 /* Build configuration list for PBXProject "Amortized Analysis and Dynamic Array Stack Application" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 710C09C61BD417F200514573;
+			productRefGroup = 710C09D01BD417F200514573 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				710C09CE1BD417F200514573 /* Amortized Analysis and Dynamic Array Stack Application */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		710C09CB1BD417F200514573 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				710C09E91BD455B300514573 /* stackapp.c in Sources */,
+				710C09DD1BD4180300514573 /* dynArray.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		710C09D41BD417F200514573 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		710C09D51BD417F200514573 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		710C09D71BD417F200514573 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		710C09D81BD417F200514573 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		710C09CA1BD417F200514573 /* Build configuration list for PBXProject "Amortized Analysis and Dynamic Array Stack Application" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				710C09D41BD417F200514573 /* Debug */,
+				710C09D51BD417F200514573 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		710C09D61BD417F200514573 /* Build configuration list for PBXNativeTarget "Amortized Analysis and Dynamic Array Stack Application" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				710C09D71BD417F200514573 /* Debug */,
+				710C09D81BD417F200514573 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 710C09C71BD417F200514573 /* Project object */;
+}

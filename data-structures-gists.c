@@ -23,6 +23,7 @@ String Manipulation
 
 
 /* @DATA STRUCTURES
+
 /*----------------------------------------------------------------------------*/
 // @DynamicArray
 /*----------------------------------------------------------------------------*/
@@ -35,81 +36,125 @@ String Manipulation
 */
 
 struct DynArr {
-	TYPE *data;		  /* pointer to the data array */
-	int size;		    /* Number of elements in the array */
-	int capacity;		/* capacity of the array */
+	TYPE *data;		  // Pointer to the data array
+	int size;		    // Number of elements in the array
+	int capacity;		// Capacity of the array
 };
 
-void initDynArr(struct DynArr *v, int capacity) {
-	v->data = malloc(sizeof(TYPE) * capacity);
-	assert(v->data != 0);
-	v->size = 0;
-	v->capacity = capacity;
+
+// Initialize (including allocation of data array) dynamic array DATA.
+void initDynArr(struct DynArr *da, int capacity) {
+	assert(capacity > 0);
+	assert(da != 0);
+	da->data = (TYPE *) malloc(sizeof(TYPE) * capacity);
+	assert(da->data != 0);
+	da->size = 0;
+	da->capacity = capacity;
 }
 
-void freeDynArr(struct DynArr *v) {
-	if(v->data != 0) {
-		free(v->data); 	  /* free the space on the heap */
-		v->data = 0;   	  /* make it point to null */
+
+// Allocate and initialize DynArr.
+DynArr* newDynArr(int capacity){
+	assert(capacity > 0);
+	DynArr *r = (DynArr *)malloc(sizeof(DynArr));
+	assert(r != 0);
+	initDynArr(r,capacity);
+	return r;
+}
+
+
+// Deallocate the data in DynArr.
+void freeDynArr(struct DynArr *da) {
+	if(da->data != 0) {
+		free(da->data); 	  // Free the space on the heap
+		da->data = 0;   	  // Make it point to null
 	}
-	v->size = 0;
-	v->capacity = 0;
+	da->size = 0;
+	da->capacity = 0;
 }
 
-int sizeDynArr( struct DynArr *v) {
-	return v->size;
+
+// Deallocate data array and the dynamic array
+void deleteDynArr(DynArr *da){
+	freeDynArr(da);
+	free(da);
 }
 
+
+// Return the size of the Dynamic array (elements)
+int sizeDynArr(struct DynArr *da) {
+	assert(da != 0);
+	return da->size;
+}
+
+
+// ADD a value to the end of the array
 void addVal(struct DynArr *v, TYPE val) {
-	/* Check to see if a resize is necessary */
+	assert(da != 0);
 	if(v->size >= v->capacity)
 		_setCapDynArr(v, 2 * v->capacity);
 	v->data[v->size] = val;
 	v->size++;
 }
 
-void _setCapDynArr(struct DynArr *v, int newCap) {
-  struct DynArr new;
-  initDynArr(&new, newCap);
-  for (int i = 0; i < v­->size; i++) {
-    new.data[i] = v­->data[i];
-  }
-  new.size = v->size;
-  freeDynArr(v);
+
+// RESIZE - Double the size of the array
+void _setCapDynArr(struct DynArr *da, int newCap) {
+	assert(da != 0);
+	TYPE *temp = malloc(sizeof(TYPE) * newCap);
+	for(int i = 0; i < da->size; i++){
+		temp[i] = da->data[i];
+	}
+	free(da->data);
+	da->capacity = newCap;
+	da-> data = temp;
 }
 
+
+// GET a value at a specified position in the array
 TYPE getDynArr (struct DynArr * da, int position) {
-  assert(da->size <= position);
+	assert(da != 0);
+  assert(da->size > 0);
+	assert(da->size >= position);
   return da->data[position];
 }
 
-void putDynArr(struct DynArr * da, int position, TYPEvalue) {
-	assert(position < da->capacity);
-	da->data[position] = TYPEvalue;
+
+// PUT a value at a specified position in the array
+void putDynArr(struct DynArr * da, int position, TYPE value) {
+			assert(da != 0);
+	    assert(da->size > 0);
+	    assert(pos < da->capacity);
+	    da->data[pos] = val;
 }
+
 
 // Swap two array positions
 void swapDynArr (struct DynArr * da, int i, int j) {
-	assert((i>=0 && i < da->size) && (j >=0 && j < da->size));
+	assert(da != 0);
+	assert(da->size > 0);
+	assert((i >= 0 && j >= 0) && (i < da->size && j < da->size));
 	TYPE temp;
   temp = da->data[i];
   da->data[i] = da->data[j];
   da->data[j] = temp;
 }
 
-// Removes the value held at a specific location and moves remaining elements
-// left 1
-void _dynArrayRemoveAt (struct DynArr * da, int index) {
-  assert(index >=0 && index < da->size);
+
+// Removes the value held at a specific location and shifts remaining elements
+void removeAtDynArr (struct DynArr * da, int index) {
+	assert(da != 0);
+	assert(da->size > 0);
+	assert(index >=0 && index < da->size);
   da->data[index] = NULL;
   // move the remaining values back
-  for(index; index < da->size; index++) {
-  	da->data[index] = da->data[index+1];
+	for(int i = index; i < da->size; i++) {
+    da->data[i] = v->data[i+1];
   }
-  da->size = index;
+  da->size = da->size - 1;
 }
 
-
+////////////////////////////////////////////////////////////////////////////////
 /* @BagDynamicArray *///////////////////////////////////////////////////////////
 /*
 .h macro for generalized container:
@@ -122,29 +167,36 @@ void _dynArrayRemoveAt (struct DynArr * da, int index) {
 */
 
 void addDynArray (struct DynArr * da, TYPE e) {
-  if(da->size <= da->capacity){
- 	  addDynArr(da, e);
-  } else{
- 	  _setCapacityDynArr(da); //doubles capacity according to comment above
- 	  addDynArr(da, e);
-  }
+	assert(v != 0);
+	if(v->size >= v->capacity){
+			dynArrSetCapacity(v, 2 * v->capacity);
+	}
+	v->data[v->size] = val;
+	v->size++;
+
+
 }
 
+// Returns T/F if dynArr contains/does not contain value e
 int containsDynArr (struct DynArr * da, TYPE e) {
-  for(int i=0; i <= da->size; i++){
+	assert(da != 0);
+	assert(da->size > 0);
+	for(int i=0; i <= da->size; i++){
    	 if(da->data[i] == e)
    		 return 1;
   }
   return 0;
 }
 
-void removeDynArr (struct DynArr * dy, TYPE test) {
-  int i;
-  for (i = 0; i < dy->size; i++) {
-    if (EQ(test, dy->data[i])) { /* found it */
-    _dynArrayRemoveAt(dy, i);
-    return;
-    }
+void removeDynArr (struct DynArr * da, TYPE val) {
+	assert(da != 0);
+	assert(da->size > 0);
+	for (int i = 0; i < da->size; i++) {
+    if (da->data[i] == val){ 						/* found it */
+    	//removeAtDynArr(da, i);
+			v->data[i] = 0;
+			v->size -= 1;
+		}
   }
 }
 
@@ -153,38 +205,51 @@ int sizeArray (struct arrayBagStack * b) {
 }
 
 
+////////////////////////////////////////////////////////////////////////////////
 /* @StackDynamicArray */////////////////////////////////////////////////////////
-// Add to top of array
-void pushDynArray (struct DynArr * da, TYPE e) {
-  if(da->size <= da->capacity){
- 	  addDynArr(da, e);
-  } else{
- 	  _setCapacityDynArr(da); //doubles capacity according to comment above
- 	  addDynArr(da, e);
-  }
-}
 
-// Remove from top of array
-void popDynArray (struct DynArr * da) {
-  removeAtDynArr(da,da->size);
-  da->size--;
-}
-
-// Return top of array
-TYPE topDynArray (struct DynArr * da) {
-  assert (sizeDynArr(da) > 0);
-  return getDynArr (da, sizeDynArr(da) -1);
-}
-
+// Determine if array is empty
 int isEmptyDynArray (struct DynArr * da) {
-  if(da->size == 0)
+	assert(v != 0);
+	if(da->size == 0)
  	 return 1;
   else
  	 return 0;
 }
 
 
-// @DequeDynamicArray /////////////////////////////////////////////////
+// Add to top of array
+void pushDynArray (struct DynArr * da, TYPE e) {
+	assert(v != 0);
+	if(v->size >= v->capacity){
+		dynArrSetCapacity(v, 2 * v->capacity);
+	}
+	v->data[v->size] = val;
+	v->size++;
+}
+
+
+// Remove from top of array
+void popDynArray (struct DynArr * da) {
+	assert(da != 0);
+	assert(da->size > 0);
+	da->data[v->size-1] = 0;
+	// removeAtDynArr(da,da->size);
+  da->size--;
+}
+
+
+// Return top of array
+TYPE topDynArray (struct DynArr * da) {
+	assert(da != 0);
+  assert(da->size > 0);
+	return getDynArr (da, (da->size - 1));
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// @DequeDynamicArray //////////////////////////////////////////////////////////
 struct deque {
 	TYPE * data;
  	int capacity;
@@ -290,6 +355,7 @@ struct Link {
 	struct Link *next;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 // @StackLinkedList ////////////////////////////////////////////////////////////
 struct ListStack {
 	struct Link *firstLink;
@@ -333,6 +399,7 @@ int linkedListStackIsEmpty (struct linkedListStack *s) {
 	return 0;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 // @QueueLinkedList ////////////////////////////////////////////////////////////
 struct listQueue {
 	struct Link *firstLink;							// Always points to sentinel
@@ -376,6 +443,7 @@ int listQueueIsEmpty (struct listQueue *q) {
 	return 0;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 // @DequeLinkedList(doubly) ////////////////////////////////////////////////////
 struct dlink {
 	TYPE value;
@@ -433,9 +501,8 @@ int LinkedListIsEmpty (struct linkedList *q) {
 /*----------------------------------------------------------------------------*/
 // @SORTING
 /*-----------------------------------------------------/----------------------*/
-////////////////
+////////////////////////////////////////////////////////////////////////////////
 // @QuickSort //
-////////////////
 void quickSort (double storage [ ], int n) {
 	quickSortInternal (storage, 0, n-1); }
 
@@ -447,6 +514,7 @@ void quickSortInternal (double storage [ ], int low, int high) {
  	quickSortInternal (storage, pivot+1, high); // second recursive call
  }
 
+////////////////////////////////////////////////////////////////////////////////
 // @MergeSort //////////////////////////////////////////////////////////////////
 
 void mergeSort (double data [ ], int n) {
@@ -469,7 +537,7 @@ void mergeSortInternal (double data [ ], int low, int high, double temp [ ]) {
 
 // needs final merge function
 
-
+////////////////////////////////////////////////////////////////////////////////
 // @ShellSort //////////////////////////////////////////////////////////////////
 void sort(int* number, int n) {
   // Sort the given array number, of length n
@@ -486,7 +554,7 @@ void sort(int* number, int n) {
     }
   }
 }
-
+////////////////////////////////////////////////////////////////////////////////
 // @BubbleSort /////////////////////////////////////////////////////////////////
 void bubbleSort (double data [ ], int n) {
   for (int i = n-1; i > 0; i--) {
