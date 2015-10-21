@@ -1,10 +1,9 @@
 // Author: Dane Schoonover
-// Date Created: 10/9/2015
-// Last Modification Date: 0/9/2015
-// File name:
-// Overview:
-// Input:
-// Output:
+// Date Created: 10/18/2015
+// Last Modification Date: 10/18/2015
+// File name: dynArray.c
+// Overview: This file provides the implementations for the dynamic array, bag, and stack
+
 
 
 /*	dynamicArray.c: Dynamic Array implementation. */
@@ -49,7 +48,7 @@ void initDynArr(DynArr *v, int capacity)
 	pre:	none
 	post:	none
 	ret:	a non-null pointer to a dynArr of cap capacity
-			and 0 elements in it.		
+			and 0 elements in it.
 */
 DynArr* newDynArr(int cap)
 {
@@ -79,7 +78,7 @@ void freeDynArr(DynArr *v)
 	v->capacity = 0;
 }
 
-/* Deallocate data array and the dynamic array ure. 
+/* Deallocate data array and the dynamic array ure.
 
 	param: 	v		pointer to the dynamic array
 	pre:	none
@@ -92,7 +91,7 @@ void deleteDynArr(DynArr *v)
 	free(v);
 }
 
-/* Resizes the underlying array to be the size cap 
+/* Resizes the underlying array to be the size cap
 
 	param: 	v		pointer to the dynamic array
 	param:	cap		the new desired capacity
@@ -144,7 +143,7 @@ void addDynArr(DynArr *v, TYPE val)
 }
 
 /*	Get an element from the dynamic array from a specified position
-	
+
 	param: 	v		pointer to the dynamic array
 	param:	pos		integer index to get the element from
 	pre:	v is not null
@@ -166,7 +165,7 @@ TYPE getDynArr(DynArr *v, int pos)
 	overwriting the element that was there
 	param: 	v		pointer to the dynamic array
 	param:	pos		the index to put the value into
-	param:	val		the value to insert 
+	param:	val		the value to insert
 	pre:	v is not null
 	pre:	v is not empty
 	pre:	pos >= 0 and pos < size of the array
@@ -215,11 +214,11 @@ void removeAtDynArr(DynArr *v, int idx)
     assert(v != 0);
     assert(v->size > 0);
     assert(idx >=0 && idx < v->size);
-    
+
     for(int i = idx; i < v->size; i++) {
         v->data[i] = v->data[i+1];
     }
- 
+
     v->size = v->size - 1;
 }
 
@@ -229,7 +228,7 @@ void removeAtDynArr(DynArr *v, int idx)
 	Stack Interface Functions
 ************************************************************************ */
 
-/*	Returns boolean (encoded in an int) demonstrating whether or not the 
+/*	Returns boolean (encoded in an int) demonstrating whether or not the
 	dynamic array stack has an item on it.
 
 	param:	v		pointer to the dynamic array
@@ -261,7 +260,7 @@ void pushDynArr(DynArr *v, TYPE val)
 
 }
 
-/*	Returns the element at the top of the stack 
+/*	Returns the element at the top of the stack
 
 	param:	v		pointer to the dynamic array
 	pre:	v is not null
@@ -274,10 +273,10 @@ TYPE topDynArr(DynArr *v)
     assert(v->size > 0);
     return getDynArr (v, (v->size - 1));
 
-	
+
 }
 
-/* Removes the element on top of the stack 
+/* Removes the element on top of the stack
 
 	param:	v		pointer to the dynamic array
 	pre:	v is not null
@@ -356,18 +355,18 @@ void removeDynArr(DynArr *v, TYPE val)
 //
 //// this main function contains some
 //int main(int argc, char* argv[]){
-//    
+//
 //    DynArr *dyn;
 //    dyn = newDynArr(2);
 //    int i;
-//    
+//
 //    printf("\n\nTesting addDynArr...\n");
 //    addDynArr(dyn, 3);
 //    addDynArr(dyn, 4);
 //    addDynArr(dyn, 10);
 //    addDynArr(dyn, 5);
 //    addDynArr(dyn, 6);
-//    
+//
 //    printf("The array's content: [3,4,10,5,6]\n");
 //    assertTrue(EQ(getDynArr(dyn, 0), 3), "Test 1st element == 3");
 //    assertTrue(EQ(getDynArr(dyn, 1), 4), "Test 2nd element == 4");
@@ -375,39 +374,39 @@ void removeDynArr(DynArr *v, TYPE val)
 //    assertTrue(EQ(getDynArr(dyn, 3), 5), "Test 4th element == 5");
 //    assertTrue(EQ(getDynArr(dyn, 4), 6), "Test 5th element == 6");
 //    assertTrue(sizeDynArr(dyn) == 5, "Test size = 5");
-//    
+//
 //    printf("\n\nTesting putDynArr...\nCalling putDynArr(dyn, 2, 7)\n");
 //    putDynArr(dyn, 2, 7);
 //    printf("The array's content: [3,4,7,5,6]\n");
 //    assertTrue(EQ(getDynArr(dyn, 2), 7), "Test 3rd element == 7");
 //    assertTrue(sizeDynArr(dyn) == 5, "Test size = 5");
-//    
+//
 //    printf("\n\nTesting swapDynArr...\nCalling swapDynArr(dyn, 2, 4)\n");
 //    swapDynArr(dyn, 2, 4);
 //    printf("The array's content: [3,4,6,5,7]\n");
 //    assertTrue(EQ(getDynArr(dyn, 2), 6), "Test 3rd element == 6");
 //    assertTrue(EQ(getDynArr(dyn, 4), 7), "Test 5th element == 7");
-//    
+//
 //    printf("\n\nTesting removeAtDynArr...\nCalling removeAtDynArr(dyn, 1)\n");
 //    removeAtDynArr(dyn, 1);
 //    printf("The array's content: [3,6,5,7]\n");
 //    assertTrue(EQ(getDynArr(dyn, 0), 3), "Test 1st element == 3");
 //    assertTrue(EQ(getDynArr(dyn, 3), 7), "Test 4th element == 7");
 //    assertTrue(sizeDynArr(dyn) == 4, "Test size = 4");
-//    
+//
 //    printf("\n\nTesting stack interface...\n");
 //    printf("The stack's content: [3,6,5,7] <- top\n");
 //    assertTrue(!isEmptyDynArr(dyn), "Testing isEmptyDynArr");
 //    assertTrue(EQ(topDynArr(dyn), 7), "Test topDynArr == 7");
-//    
+//
 //    popDynArr(dyn);
 //    printf("Poping...\nThe stack's content: [3,6,5] <- top\n");
 //    assertTrue(EQ(topDynArr(dyn), 5), "Test topDynArr == 5");
-//    
+//
 //    pushDynArr(dyn, 9);
 //    printf("Pushing 9...\nThe stack's content: [3,6,5,9] <- top\n");
 //    assertTrue(EQ(topDynArr(dyn), 9), "Test topDynArr == 9");
-//    
+//
 //    printf("\n\nTesting bag interface...\n");
 //    printf("The bag's content: [3,6,5,9]\n");
 //    assertTrue(containsDynArr(dyn, 3), "Test containing 3");
@@ -415,16 +414,12 @@ void removeDynArr(DynArr *v, TYPE val)
 //    assertTrue(containsDynArr(dyn, 5), "Test containing 5");
 //    assertTrue(containsDynArr(dyn, 9), "Test containing 9");
 //    assertTrue(!containsDynArr(dyn, 7), "Test not containing 7");
-//    
+//
 //    removeDynArr(dyn, 3);
 //    printf("Removing 3...\nThe stack's content: [6,5,9]\n");
 //    assertTrue(!containsDynArr(dyn, 3), "Test not containing 3");
-//    
+//
 //    return 0;
 //}
 //
 //
-
-
-
-
