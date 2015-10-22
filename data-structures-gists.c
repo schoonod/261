@@ -4,16 +4,18 @@ Dynamic Array
 	Bag
 	Stack
 	Deque
+	Iterator
 LinkedList
+	Bag
 	Stack
 	Queue
 	Deque (doubly)
+	Iterator
 Sorting
   quickSort
   mergeSort
   shellSort
   bubbleSort
-
 Search
 	binary
 MACROS
@@ -227,6 +229,34 @@ void dyArrayAddAt (struct dyArray *dy, int index, TYPE newElement) {
 	dy->data[index] = newElement;
 	dy->size += 1
 }
+
+int dyArrayBinarySearch (struct dyArray * da, TYPE testValue) {
+   return _binarySearch (da->data, da->size, testValue);
+}
+
+void orderedArrayAdd (struct dyArray *da, TYPE newElement) {
+   int index = _binarySearch(da->data, da->size, newElement);
+   dyArrayAddAt (da, index, newElement);  /* takes care of resize if necessary*/
+}
+
+int orderedArrayContains (struct dyArray *da, TYPE testElement) {
+	assert(da != null)
+	int index = _binarySearch(da->data, da->size, newElement);
+	if (index){
+	 if (da->data[index] = testElement)
+		 return 1;
+	 else
+		 return 0;
+	}
+}
+
+void orderedArrayRemove (struct dyArray *da, TYPE testElement) {
+	assert(da != null)
+	int index = _binarySearch(da->data, da->size, newElement);
+ 	dyArrayRemoveAt (da, index, newElement);
+}
+
+
 //------------------------------------------------------------------------------
 
 // @StackDynamicArray
@@ -275,7 +305,7 @@ struct deque {
 	TYPE * data;
  	int capacity;
  	int size;
- 	int start;
+ 	int start;		// needed due to wrapping
 };
 //**************************************
 void dequeInit (struct deque *d, int initCapacity) {
@@ -366,14 +396,110 @@ void dequeRemoveBack (struct deque *d) {
 		d-size -= 1;
 }
 //------------------------------------------------------------------------------
+
+// @IteratorDynamicArray
+
+//------------------------------------------------------------------------------
+struct dynArrayIterator {
+   struct dynArray * da;
+   int currentIndex;
+};
+
+void dynArrayIteratorInit (struct dynArray *da, struct dynArrayIterator *itr) {
+	itr->dynArray = da;
+	itr->currentIndex = da->data[0];
+}
+
+int dynArrayIteratorHasNext (struct dynArrayIterator *itr) {
+	if(itr->da->data[currentIndex]+1) != da->capacity){
+			itr->da->data[currentIndex] += 1;
+			return(1);
+		}
+		else
+		 	return(0);
+}
+
+TYPE dynArrayIteratorNext (struct dynArrayIterator *itr) {
+	return(itr->da->data[currentIndex]);
+}
+
+void dynArrayIteratorRemove (struct dynArrayIterator *itr) {
+	removeAtDynArr(itr->da, itr->currentIndex);
+	itr->currentIndex  -= 1;
+}
+
+//------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 // @LINKED LIST ----------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
-// Linked list struct
+// Standard link struct
 struct Link {
 	TYPE val;
 	struct Link *next;
+}
+//**************************************
+// Doubly link struct
+struct dLink {
+	TYPE value;
+	struct dLink * next;
+	struct dLink * prev;
+};
+//**************************************
+// Doubly list struct
+struct linkedList {
+ struct dLink * frontSentinel;
+ struct dLink * backSentinel;
+ int size;
+};
+//------------------------------------------------------------------------------
+
+// @BagLinkedList
+
+//------------------------------------------------------------------------------
+// Doubly link struct
+struct dLink {
+	TYPE value;
+	struct dLink * next;
+	struct dLink * prev;
+};
+//**************************************
+struct linkedList {
+ struct dLink * frontSentinel;
+ struct dLink * backSentinel;
+ int size;
+};
+//**************************************
+// Determine if value exists in the linkedList
+int linkedListContains (struct linkedList *lst, TYPE e) {
+	assert(lst->frontSentinel->next != NULL);
+	struct dLink *temp;								// create link 'iterator'
+	temp = lst->frontSentinel->next;
+	while(temp->next != NULL){
+			if(temp->value == e)
+				return 1;
+		temp = temp->next;
+	}
+	return 0;
+}
+//**************************************
+void LinkedListAddback (struct linkedList *q, TYPE e) {
+	_addBefore(q, q->backSentinel, e);
+}
+//**************************************
+void linkedListRemove (struct linkedList *lst, TYPE e) {
+	assert(lst->frontSentinel->next != NULL);
+	struct dLink *temp;
+	temp = lst->frontSentinel->next;
+	while(temp != lst->backSentinel){
+		if(temp->value == e){
+			_removeLink(lst, temp);
+			return;
+		}
+
+		temp = temp->next;
+	}
+
 }
 //------------------------------------------------------------------------------
 
@@ -427,12 +553,11 @@ int linkedListStackIsEmpty (struct linkedListStack *s) {
 // @QueueLinkedList
 
 //------------------------------------------------------------------------------
-
 struct listQueue {
 	struct Link *firstLink;							// Always points to sentinel
 	struct Link *lastLink;
 }
-//*******************************************************************
+//**************************************
 void listQueueInit(struct listQueue *q) {
 	struct Link *lnk = (struct Link *) malloc(sizeof(struct Link));
 		/* this initial lnk is the sentinel link */
@@ -440,7 +565,7 @@ void listQueueInit(struct listQueue *q) {
 	lnk->next = 0;
 	q->firstLink = q->lastLink = lnk;
 }
-//*******************************************************************
+//**************************************
 void addBacklistQueue(struct listQueue *q, TYPE e) {
 	struct Link *lnk = (struct Link *) malloc(sizeof(struct Link));
 	assert(lnk != 0);
@@ -449,20 +574,20 @@ void addBacklistQueue(struct listQueue *q, TYPE e) {
 	q->lastLink->next = lnk;						// Point the lastLink to the new link (the new lastLink)
 	q->lastlink = lnk;									// Reassign the lastLink pointer to the newLink
 }
-//*******************************************************************
+//**************************************
 TYPE listQueueFront (struct listQueue *q) {
 	if(q->firstLink != NULL)
 		return q->firstLink->value;
 
 }
-//*******************************************************************
+//**************************************
 void listQueueRemoveFront (struct listQueue *q) {
 	if(q->firstLink != NULL){
 		struct link* temp = q->firstLink;
 		q->firstLink = temp->link;
 		free(temp);
 	}
-//*******************************************************************
+//**************************************
 int listQueueIsEmpty (struct listQueue *q) {
 	if(q->firstLink != NULL)
 		return 1;
@@ -473,19 +598,21 @@ int listQueueIsEmpty (struct listQueue *q) {
 // @DequeLinkedList(doubly)
 
 //------------------------------------------------------------------------------
+// Doubly link struct
 struct dLink {
 	TYPE value;
-	struct dlink * next;
-	struct dlink * prev;
+	struct dLink * next;
+	struct dLink * prev;
 };
-//*******************************************************************
+//**************************************
+// Doubly list struct
 struct linkedList {
 	int size;
-	struct dlink * frontSentinel;
-	struct dlink * backSentinel;
+	struct dLink * frontSentinel;
+	struct dLink * backSentinel;
 };
-//*******************************************************************
-void LinkedListInit (struct linkedList *q) {
+//**************************************
+void linkedListInit (struct linkedList *q) {
 	q->frontSentinel = malloc(sizeof(struct dlink));
 	assert(q->frontSentinel != 0);
 	q->backSentinel = malloc(sizeof(struct dlink));
@@ -496,7 +623,35 @@ void LinkedListInit (struct linkedList *q) {
 	q->backSentinel->next = 0;
 	q->size = 0;
 }
-//*******************************************************************
+//**************************************
+void _addBefore (struct linkedList *q, struct dlink *lnk, TYPE e) {
+	if (frontSentinel != backSentinel){
+		struct Link *newLink = malloc(sizeof(struct dlink));
+		assert(q->frontSentinel != 0);
+		newLink-> value = e;
+		// the link to the left of newLink, has a new next of newLink
+		q->lnk->previous->next = newLink;
+		// newLink’s previous is the link it comes after
+		newLink->previous = q->lnk->previous;
+		// the link to the right of newLink has a new previous of newLink
+		q->link->previous = newLink
+		// newLink’s next is the link it comes before
+		newLink->next = q->link;
+	}
+	size++;
+}
+//**************************************
+void _removeLink (struct linkedList *q, struct dlink *lnk) {
+if (frontSentinel != backSentinel){
+		// the link to the right of lnk has a new previous of lnk’s previous
+		q->lnk->next->previous = q->lnk->previous;
+		// the link to the left of lnk has a new next of lnk’s next
+		q->lnk->previous->next = q->lnk->next;
+		free (lnk);
+}
+size--;
+}
+//**************************************
 void linkedListFree (struct linkedList *q) {
 	while (q->size > 0)
 		linkedListRemoveFront(q);
@@ -504,19 +659,20 @@ void linkedListFree (struct linkedList *q) {
 	free (q->backSentinel);
 	q->frontSentinel = q->backSentinel = null;
 }
-//*******************************************************************
+//**************************************
 void LinkedListAddFront (struct linkedList *q, TYPE e) {
 	_addBefore(q, q->frontSentinel_>next, e);
 }
-//*******************************************************************
+//**************************************
 void LinkedListAddback (struct linkedList *q, TYPE e) {
-	_addBefore(q, q->backSentinel, e); }
-//*******************************************************************
+	_addBefore(q, q->backSentinel, e);
+}
+//**************************************
 void linkedListRemoveFront (struct linkedList *q) {
 	assert(! linkedListIsEmpty(q));
 	_removeLink (q, q->frontSentinel->next);
 }
-//*******************************************************************
+//**************************************
 void LinkedListRemoveBack (struct linkedList *q) {
 	assert(! linkedListIsEmpty(q));
 	_removeLink (q, q->backSentinel->prev);
@@ -529,6 +685,19 @@ int LinkedListIsEmpty (struct linkedList *q) {
 // @IteratorLinkedList - Linked list traversing
 
 //------------------------------------------------------------------------------
+// Link
+struct dLink {
+	TYPE value;
+	struct dLink * next;
+	struct dLink * prev;
+};
+//**************************************
+// Doubly list struct
+struct linkedList {
+ struct dLink * frontSentinel;
+ struct dLink * backSentinel;
+ int size;
+};
 //**************************************
 // Iterator struct
 struct linkedListIter {
@@ -538,14 +707,14 @@ struct linkedListIter {
 //**************************************
 // Iterator init
 void linkedListIteratorInit (struct linkedList *lst, struct linkedListIterator * itr) {
- itr->lst = lst;
- itr->cur = lst->frontSentinel; // **** lst->frontSentinel->next??
+	itr->lst = lst;
+	itr->cur = lst->frontSentinel; // **** lst->frontSentinel->next
 }
 //**************************************
 // Create an iterator
-struct linkedListIter *createLLI(struct linkedList *lst){
+struct linkedListIter createLLI(struct linkedList *lst){
 	struct linkedListIter *newItr = malloc(sizeof(struct linkedListIter));
-	assert(newItr !=0);
+	assert(newItr !=0 );
 	initLinkedListIter(lst, newItr);
 	return(newItr);
 }
@@ -563,7 +732,7 @@ int hasNextLinkedListIter(struct linkedListIter *itr){
 // GET next value; **current is now next after hasNext call,
 // so current value is next value
 TYPE nextLinkedListIter(struct linkedListIter *itr){
-	return(itr->cur->value);	// ****Uncertain about this
+	return(itr->cur->value);
 }
 //**************************************
 // REMOVE last value returned by 'next'
@@ -664,7 +833,7 @@ void bubbleSort (double data [ ], int n) {
 // @BinarySearch
 
 //------------------------------------------------------------------------------
-int binarySearch (TYPE * data, int size, TYPE testValue) { int low = 0;
+int _binarySearch (TYPE * data, int size, TYPE testValue) { int low = 0;
 	int high = size;
 	int mid;
 	while (low < high) {
