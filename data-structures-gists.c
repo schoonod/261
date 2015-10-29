@@ -12,6 +12,8 @@ LinkedList
 		BagDoublyLinkedList
 		DequeueDoublyLinkedList
 		IteratorDoublyLinkedList
+Binary Search Tree
+	Bag
 Sorting
   quickSort
   mergeSort
@@ -112,17 +114,17 @@ void addVal(struct DynArr *dyAr, TYPE val) {
 // GET a value at a specified position in the array
 TYPE getDynArr (struct DynArr * dyAr, int position) {
 	assert(dyAr != NULL);
-  assert(dyAr->size > 0);
+  	assert(dyAr->size > 0);
 	assert(dyAr->size >= position);
-  return dyAr->data[position];
+  	return dyAr->data[position];
 }
 //**************************************
 // PUT a value at a specified position in the array
 void putDynArr(struct DynArr * dyAr, int position, TYPE value) {
-			assert(dyAr != NULL);
-	    assert(dyAr->size > 0);
-	    assert(position < dyAr->capacity);
-	    dyAr->data[position] = value;
+	assert(dyAr != NULL);
+    assert(dyAr->size > 0);
+    assert(position < dyAr->capacity);
+    dyAr->data[position] = value;
 }
 //**************************************
 // Swap two array positions
@@ -131,9 +133,9 @@ void swapDynArr (struct DynArr * dyAr, int i, int j) {
 	assert(dyAr->size > 0);
 	assert((i >= 0 && j >= 0) && (i < dyAr->size && j < dyAr->size));
 	TYPE temp;
-  temp = dyAr->data[i];
-  dyAr->data[i] = dyAr->data[j];
-  dyAr->data[j] = temp;
+  	temp = dyAr->data[i];
+  	dyAr->data[i] = dyAr->data[j];
+  	dyAr->data[j] = temp;
 }
 //**************************************
 // Removes the value held at a specific location and shifts remaining elements
@@ -141,8 +143,8 @@ void removeAtDynArr (struct DynArr * dyAr, int index) {
 	assert(dyAr != NULL);
 	assert(dyAr->size > 0);
 	assert(index >=0 && index < dyAr->size);
-  dyAr->data[index] = NULL;
-  // move the remaining values back
+  	dyAr->data[index] = NULL;
+  	// move the remaining values back
 	for(int i = index; i < dyAr->size; i++) {
     dyAr->data[i] = dyAr->data[i+1];
   }
@@ -987,6 +989,77 @@ void removeLinkedListIter(struct linkedListIter *itr) {
 	itr->cur = itr->cur->prev;
 	_removeLink(itr->lst, tmp);
 }
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// @BINARY SEARCH TREE ---------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+// @BagBinarySearchTree
+
+//------------------------------------------------------------------------------
+// Node struct
+struct Node {
+   TYPE value;
+   struct Node * left;
+   struct Node * right;
+};
+//**************************************
+// Binary Search Tree struct
+struct BinarySearchTree {
+   struct Node *root;
+   int size;
+};
+//**************************************
+// Initialize
+void initBST(struct BinarySearchTree *tree) { 
+	tree->size = 0; 
+	tree->root = 0: 
+}
+//**************************************
+// Add a new value to the tree
+void addBST(struct BinarySearchTree *tree, TYPE newValue) {
+	tree->root = _nodeAddBST(tree->root, newValue);  
+	tree->size++; 
+}
+//**************************************
+// Return tree sizse
+int sizeBST (struct binarySearchTree *tree) { 
+	return tree->size; 
+}
+//**************************************
+struct Node * _nodeAddBST (struct Node *current, TYPE newValue) {
+if (current == 0) {
+	newNode = malloc (sizeof(struct Node));
+	assert(newNode !=0);
+	newNode->value = value;
+	newNode->left = newNode->right = 0;
+	return newNode;
+}	
+else if (value < current ->value) {
+	current->left = _addNode(current->left, value);
+}
+
+	else {
+		current->right = _addNode(current->right,value);
+}
+
+}
+//**************************************
+
+//**************************************
+
+//**************************************
+
+//**************************************
+
+//**************************************
+
+//**************************************
+
+//**************************************
+
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 // @SORTING --------------------------------------------------------------------
@@ -1096,6 +1169,15 @@ int _binarySearch (TYPE * data, int size, TYPE testValue) { int low = 0;
 // MACROS ----------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
+// Pointer to void
+#ifndef __FILE_H
+#define __FILE_H
+# define TYPE void *
+// user defined compare function
+// 0 if l = r
+// -1 if l < r
+// 1 if l > r
+// int compare (TYPE left, TYPE right);
 //*******************************************************************
 // Less Than
 # ifndef LT
