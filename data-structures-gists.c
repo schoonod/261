@@ -1,4 +1,7 @@
 /*
+
+****Use '@thingYouAreLookingFor' to jump to what you need
+
 Table of Contents
 Dynamic Array
 	Bag
@@ -10,7 +13,7 @@ LinkedList
 	Queue
 	Doubly
 		BagDoublyLinkedList
-		DequeueDoublyLinkedList
+		DequeDoublyLinkedList
 		IteratorDoublyLinkedList
 Binary Search Tree
 	Bag
@@ -51,8 +54,8 @@ struct DynArr {
 //**************************************
 // Initialize (including allocation of data array) dynamic array DATA.
 void initDynArr(struct DynArr *dyAr, int capacity) {
-	assert(capacity > 0);
 	assert(dyAr != 0);
+	assert(capacity > 0);
 	dyAr->data = (TYPE *) malloc(sizeof(TYPE) * capacity);
 	assert(dyAr->data != 0);
 	dyAr->size = 0;
@@ -85,12 +88,14 @@ void deleteDynArr(struct DynArr *dyAr){
 }
 //**************************************
 // Return the size of the Dynamic array (elements)
+// O(1)
 int sizeDynArr(struct DynArr *dyAr) {
 	assert(dyAr != 0);
 	return dyAr->size;
 }
 //**************************************
 // RESIZE - Double the size of the array
+// O(n)
 void setCapDynArr(struct DynArr *dyAr, int newCap) {
 	assert(dyAr != NULL);
 	TYPE *temp = malloc(sizeof(TYPE) * newCap);
@@ -103,6 +108,7 @@ void setCapDynArr(struct DynArr *dyAr, int newCap) {
 }
 //**************************************
 // ADD a value to the end of the array
+// O(1)+
 void addVal(struct DynArr *dyAr, TYPE val) {
 	assert(dyAr != 0);
 	if(dyAr->size >= dyAr->capacity)
@@ -112,6 +118,7 @@ void addVal(struct DynArr *dyAr, TYPE val) {
 }
 //**************************************
 // GET a value at a specified position in the array
+// O(n)
 TYPE getDynArr (struct DynArr * dyAr, int position) {
 	assert(dyAr != NULL);
   	assert(dyAr->size > 0);
@@ -120,6 +127,7 @@ TYPE getDynArr (struct DynArr * dyAr, int position) {
 }
 //**************************************
 // PUT a value at a specified position in the array
+// O(1)
 void putDynArr(struct DynArr * dyAr, int position, TYPE value) {
 	assert(dyAr != NULL);
     assert(dyAr->size > 0);
@@ -128,6 +136,7 @@ void putDynArr(struct DynArr * dyAr, int position, TYPE value) {
 }
 //**************************************
 // Swap two array positions
+// O(1)
 void swapDynArr (struct DynArr * dyAr, int i, int j) {
 	assert(dyAr != NULL);
 	assert(dyAr->size > 0);
@@ -139,16 +148,17 @@ void swapDynArr (struct DynArr * dyAr, int i, int j) {
 }
 //**************************************
 // Removes the value held at a specific location and shifts remaining elements
+// O(n)
 void removeAtDynArr (struct DynArr * dyAr, int index) {
 	assert(dyAr != NULL);
 	assert(dyAr->size > 0);
 	assert(index >=0 && index < dyAr->size);
-  	dyAr->data[index] = NULL;
+  	// dyAr->data[index] = NULL; --> unnecessary step?
   	// move the remaining values back
 	for(int i = index; i < dyAr->size; i++) {
-    dyAr->data[i] = dyAr->data[i+1];
-  }
-  dyAr->size = dyAr->size - 1;
+    	dyAr->data[i] = dyAr->data[i+1];
+  	}
+  	dyAr->size = dyAr->size - 1;
 }
 //*******************************************************************
 // @ORDEREDDynamicArray
@@ -202,6 +212,7 @@ void arraySetIntersect (struct dyArray *left, struct dyArray *right, struct dyAr
 */
 //------------------------------------------------------------------------------
 // Returns T/F if dynArr contains/does not contain value e
+// O(n)
 int containsDynArr (struct DynArr * dyAr, TYPE e) {
 	assert(dyAr != NULL);
 	assert(dyAr->size > 0);
@@ -234,7 +245,7 @@ void orderedArrayAdd (struct dyArray *dy, TYPE newElement) {
 	int index = binarySearch(dy->data, dy->size, newElement);
 	dyArrayAddAt (dy, index, newElement);
 }
-
+//**************************************
 void dyArrayAddAt (struct dyArray *dy, int index, TYPE newElement) {
 	int i;
 	assert(index > 0 && index <= dy->size);
@@ -245,27 +256,23 @@ void dyArrayAddAt (struct dyArray *dy, int index, TYPE newElement) {
 	dy->data[index] = newElement;
 	dy->size += 1
 }
-
+//**************************************
+// Returns the index of the testValue or if it does not exist, the index of where it should go
 int dyArrayBinarySearch (struct dyArray * dyAr, TYPE testValue) {
    return _binarySearch (dyAr->data, dyAr->size, testValue);
 }
-
+//**************************************
 void orderedArrayAdd (struct dyArray *dyAr, TYPE newElement) {
    int index = _binarySearch(dyAr->data, dyAr->size, newElement);
    dyArrayAddAt (dyAr, index, newElement);  /* takes care of resize if necessary*/
 }
-
+//**************************************
 int orderedArrayContains (struct dyArray *dyAr, TYPE testElement) {
 	assert(dyAr != null)
 	int index = _binarySearch(dyAr->data, dyAr->size, newElement);
-	if (index){
-	 if (dyAr->data[index] = testElement)
-		 return 1;
-	 else
-		 return 0;
-	}
+	return(dyAr->data[index] = testElement);
 }
-
+//**************************************
 void orderedArrayRemove (struct dyArray *dyAr, TYPE testElement) {
 	assert(dyAr != null)
 	int index = _binarySearch(dyAr->data, dyAr->size, newElement);
@@ -289,6 +296,7 @@ int isEmptyDynArray (struct DynArr * dyAr) {
 }
 //**************************************
 // Add to top of array
+// O(1)+, O(n) with resize
 void pushDynArray (struct DynArr * dyAr, TYPE e) {
 	assert(dyAr != NULL);
 	if(dyAr->size >= dyAr->capacity){
@@ -299,6 +307,7 @@ void pushDynArray (struct DynArr * dyAr, TYPE e) {
 }
 //**************************************
 // Remove from top of array
+// O(1)
 void popDynArray (struct DynArr * dyAr) {
 	assert(dyAr != NULL);
 	assert(dyAr->size > 0);
@@ -308,6 +317,7 @@ void popDynArray (struct DynArr * dyAr) {
 }
 //**************************************
 // Return top of array
+// O(1)
 TYPE topDynArray (struct DynArr * dyAr) {
 	assert(dyAr != NULL);
   assert(dyAr->size > 0);
@@ -410,7 +420,7 @@ void dequeAddBack (struct deque *dyAr, TYPE newValue) {
 	int index;
 	if (dyAr->size >= dyAr->capacity)
 		_dequeSetcapacity(dyAr, 2 * dyAr->capacity);
-	index = dyAr->start + dyAr->size);			// empty position after element at the back of the deque
+	index = dyAr->start + dyAr->size;			// empty position after element at the back of the deque
 		if (index >= dyAr->capacity)
 			index -= dyAr->capacity;
 	dyAr->data[index] = newValue;
@@ -1029,31 +1039,129 @@ int sizeBST (struct binarySearchTree *tree) {
 	return tree->size; 
 }
 //**************************************
+// Adds a node to the BST
 struct Node * _nodeAddBST (struct Node *current, TYPE newValue) {
-if (current == 0) {
-	newNode = malloc (sizeof(struct Node));
-	assert(newNode !=0);
-	newNode->value = value;
-	newNode->left = newNode->right = 0;
-	return newNode;
-}	
-else if (value < current ->value) {
-	current->left = _addNode(current->left, value);
-}
+	if (current == 0) {
+		newNode = malloc (sizeof(struct Node));
+		assert(newNode !=0);
+		newNode->value = value;
+		newNode->left = newNode->right = 0;
+			return newNode;
+	}	
+	else if (value < current ->value) {
+		current->left = _nodeAddBST(current->left, value);
+	}
 
 	else {
-		current->right = _addNode(current->right,value);
+		current->right = _nodeAddBST(current->right,value);
+	}
+
+	return current;
 }
+//**************************************
+// Returns T/F if a node exists
+struct Node *current = tree->root;
+	while (current !=0) {
+		if (current->value == value) {
+	}
+		else if (value < current->value) {
+			current = current->left;
+	}
+		else {
+			current = current->right;
+	}
+}
+//**************************************
+// Returns leftmost child of a node
+TYPE _leftMostChild (struct Node * current) {		
+	assert(current != null);
+	if(current->left != NULL) {
+			return _leftMostChild(current->left);
+		return current->value;
+	}
+}
+//**************************************
+// Removes a node
+void removeBST (struct binarySearchTree *tree, TYPE d) {
+   if (containsBST(tree, d) {
+      tree->root = _nodeRemoveBST(tree->root, d);
+      tree->size--;
+   }
+}
+//**************************************
+// Removes a leftmost child, while also setting the current->left to current->left->right (replaces leftmost child with the child's right)
+struct node * _removeLeftmostChild (struct Node *current) {
+	assert(current !=0);	
+	if (current->left == 0) {
+		struct Node *temp = current
+	    free(current);
+		return temp->right?;
+	}
+	else {
+		current->left = _removeLeftmostChild(current->left);
+	}
+}
+// Notes: A companion routine (removeLeftmost) is a function to return a tree with the leftmost child removed. Again, traverse the tree until 
+// the leftmost child is found.  When found, return the right child (which could possibly be null) to become the new current->left of the replaced node. 
+// Otherwise make a recursive call and set the left child to the value returned by the recursive call (the right child of leftmost child), 
+// and return the current Node.
+//**************************************
+// Returns the newly replaced node
+struct Node *  _nodeRemoveBST (struct Node * current, TYPE d) {
+	if (current-> value == value) {
+		***decrease size
+		if (current->right == 0) {
+			struct Node *temp = current->left;
+			free(current);
+			return temp;
+		}
+	} 
+		else {
+			current->value = _leftMostChild(current->right);
+			current->right = _removeLeftmostChild(current->right);
+		} 
+	}
+	
+	else if (value < current->value) {
+		current->left = _nodeRemoveBST(current->left, value);
+	} 
 
+	else {
+		current-> right = _nodeRemoveBST(current->right, value);
+	}
+	
+	return current;
 }
 //**************************************
 
 //**************************************
+/*  nodeRemoveBST concept
+	Node remove is a function that removes the desired node by traversing the tree until found, and replaces
+		that Node with the leftmost child of the right child, of that node. This leftmost child is used because it is
+		bigger than all left descendants of the replaced node, yet smaller than all right descendants of the replaced
+		node. It also means that no other rearranging must take place once this value takes the place of the replaced node.
 
-//**************************************
-
-//**************************************
-
+Node remove (Node start, E testValue)
+ if start->value is the value we seek (== testValue)
+ 	decrease the value of dataSize (b/c we are removing it)
+ 	if right child is null (meaning that there is no right subtree that we have to worry about, only a left tree)
+ 		return left child (this will replace the value being removed)
+	 otherwise
+	 	replace value of node with leftmost child of right child
+	 	right child = removeLeftmost(right child)
+	 		--> this will free the leftmost child's previous memory location
+	 		--> and return the the right child (if any) of that leftmost child to become the new left value of the replaced node's right value
+ otherwise if testValue is smaller than start.value, go down left subtree
+ 	left child = nodeRemoveBST(left child, testValue)	
+ 		--> this makes left child = the value returned by nodeRemoveBST, which is the leftmost child
+ otherwise, testValue is greater, so go down right tree
+ 	set right child to remove(right child, testValue)	 
+ 		--> right child becomes the leftmost child
+ return current node
+ 	--> current node is the new node that replaced the removed one
+ 	--> it's former spot that it moved from has also been freed
+ 	--> and 
+*/
 //**************************************
 
 //**************************************
