@@ -47,22 +47,22 @@ String Manipulation
 //------------------------------------------------------------------------------
 // The Dynamic Array
 struct DynArr {
-	TYPE *data;		  // Pointer to the data array
+	TYPE *data;		  	// Pointer to the data array
 	int size;		    // Number of elements in the array
 	int capacity;		// Capacity of the array
 };
 //**************************************
 // Initialize (including allocation of data array) dynamic array DATA.
 void initDynArr(struct DynArr *dyAr, int capacity) {
-	assert(dyAr != 0);
+	assert(dyAr != NULL);
 	assert(capacity > 0);
 	dyAr->data = (TYPE *) malloc(sizeof(TYPE) * capacity);
-	assert(dyAr->data != 0);
+	assert(dyAr->data != NULL);
 	dyAr->size = 0;
 	dyAr->capacity = capacity;
 }
 //**************************************
-// Allocate and initialize DynArr.
+// Allocate and initialize DynArr
 struct DynArr* createDynArr(int capacity){
 	assert(capacity > 0);
 	struct DynArr *r = (DynArr *)malloc(sizeof(DynArr));
@@ -71,26 +71,26 @@ struct DynArr* createDynArr(int capacity){
 	return r;
 }
 //**************************************
-// Deallocate the data in DynArr.
-void freeDynArr(struct DynArr *dyAr) {
-	if(dyAr->data != 0) {
+// Deallocate the data in DynArr
+void freeDynArrData(struct DynArr *dyAr){
+	if(dyAr->data != NULL) {
 		free(dyAr->data); 	  // Free the space on the heap
-		dyAr->data = 0;   	  // Make it point to null
+		dyAr->data = 0;   	  // Make it point to null; as convention?
 	}
 	dyAr->size = 0;
 	dyAr->capacity = 0;
 }
 //**************************************
 // Deallocate data array and the dynamic array
-void deleteDynArr(struct DynArr *dyAr){
-	freeDynArr(dyAr);
+void freeDynArr(struct DynArr *dyAr){
+	freeDynArrData(dyAr);
 	free(dyAr);
 }
 //**************************************
 // Return the size of the Dynamic array (elements)
 // O(1)
 int sizeDynArr(struct DynArr *dyAr) {
-	assert(dyAr != 0);
+	assert(dyAr != NULL);
 	return dyAr->size;
 }
 //**************************************
@@ -104,7 +104,7 @@ void setCapDynArr(struct DynArr *dyAr, int newCap) {
 	}
 	free(dyAr->data);
 	dyAr->capacity = newCap;
-	dyAr-> data = temp;
+	dyAr->data = temp;
 }
 //**************************************
 // ADD a value to the end of the array
@@ -118,7 +118,7 @@ void addVal(struct DynArr *dyAr, TYPE val) {
 }
 //**************************************
 // GET a value at a specified position in the array
-// O(n)
+// O(1)
 TYPE getDynArr (struct DynArr * dyAr, int position) {
 	assert(dyAr != NULL);
   	assert(dyAr->size > 0);
@@ -130,8 +130,8 @@ TYPE getDynArr (struct DynArr * dyAr, int position) {
 // O(1)
 void putDynArr(struct DynArr * dyAr, int position, TYPE value) {
 	assert(dyAr != NULL);
-    assert(dyAr->size > 0);
-    assert(position < dyAr->capacity);
+    assert(dyAr->size > 0);	// Why is this necessary?
+    assert(position < dyAr->size);
     dyAr->data[position] = value;
 }
 //**************************************
@@ -182,15 +182,15 @@ it is not found in the other set).
 */
 
 // Intersect
-void arraySetIntersect (struct dyArray *left, struct dyArray *right, struct dyArray *to) {
+void arraySetIntersect (struct dynArr *left, struct dynArr *right, struct dynArr *to) {
 	int i = 0;
 	int j = 0;
-	while ((i < dyArraySize(left)) && (j < dyArraySize(right))) {
-		if (LT(dyArrayGet(left, i), dyArrayGet(right, j))
-			i++;
-		else if (EQ(dyArrayGet(left, i), dyArrayGet(right, j))) {
-			dyArrayAdd(to, dyArrayGet(left, i));
+	while ((i < dynArrSize(left)) && (j < dynArrSize(right))) {
+		if (EQ(dynArrGet(left, i), dynArrGet(right, j))) {
+			dynArrAdd(to, dynArrGet(left, i));
 			i++; j++;
+		else if (LT(dynArrGet(left, i), dynArrGet(right, j)) {
+			i++;
 		}
 		else
 			j++;
@@ -211,7 +211,7 @@ void arraySetIntersect (struct dyArray *left, struct dyArray *right, struct dyAr
 				createDynArr
 */
 //------------------------------------------------------------------------------
-// Returns T/F if dynArr contains/does not contain value e
+// Returns T/F if bag contains/does not contain value e
 // O(n)
 int containsDynArr (struct DynArr * dyAr, TYPE e) {
 	assert(dyAr != NULL);
@@ -223,6 +223,8 @@ int containsDynArr (struct DynArr * dyAr, TYPE e) {
   return 0;
 }
 //**************************************
+// Remove a value from bag
+// O(n)
 void removeDynArr (struct DynArr * dyAr, TYPE val) {
 	assert(dyAr != NULL);
 	assert(dyAr->size > 0);
@@ -234,49 +236,56 @@ void removeDynArr (struct DynArr * dyAr, TYPE val) {
   }
 }
 //**************************************
+// Return size of the bag
+// O(1)
 int sizeArray (struct arrayBagStack * b) {
-  return b->count;
+  return b->size;
 }
 //**************************************
 // @ORDEREDdBag
 //**************************************
-// Find the correct location to insert a value (binary search)
-void orderedArrayAdd (struct dyArray *dy, TYPE newElement) {
-	int index = binarySearch(dy->data, dy->size, newElement);
-	dyArrayAddAt (dy, index, newElement);
+//**************************************
+// Returns the index of the testValue or if it does not exist, the index of where it should go
+// O(log n)
+int dynArrBinarySearch (struct dynArr * dyAr, TYPE testValue) {
+   return _binarySearch (dyAr->data, dyAr->size, testValue);
 }
 //**************************************
-void dyArrayAddAt (struct dyArray *dy, int index, TYPE newElement) {
+// Adds a value at given index
+// O(n)
+void dynArrAddAt (struct dynArr *dy, int index, TYPE newElement) {
 	int i;
 	assert(index > 0 && index <= dy->size);
 	if (dy->size >= dy->capacity)
-		_setCapacityDy++)Arr(dy, 2 * dy->capacity);
-	for (i = index; i < size; i++)
+		_setCapacityDyArr(dy, 2 * dy->capacity);
+	// Shift elements right
+	for (i = index; i < dy->size; i++)
 		dy->data[index + 1] = dy->data[index];
 	dy->data[index] = newElement;
 	dy->size += 1
 }
 //**************************************
-// Returns the index of the testValue or if it does not exist, the index of where it should go
-int dyArrayBinarySearch (struct dyArray * dyAr, TYPE testValue) {
-   return _binarySearch (dyAr->data, dyAr->size, testValue);
+// Insert a value at the correct ordered location
+// O(n)
+void orderedArrayAdd (struct dynArr *dy, TYPE newElement) {
+	int index = binarySearch(dy->data, dy->size, newElement);	// returns the location to enter a value
+	dynArrAddAt(dy, index, newElement);
 }
 //**************************************
-void orderedArrayAdd (struct dyArray *dyAr, TYPE newElement) {
-   int index = _binarySearch(dyAr->data, dyAr->size, newElement);
-   dyArrayAddAt (dyAr, index, newElement);  /* takes care of resize if necessary*/
-}
-//**************************************
-int orderedArrayContains (struct dyArray *dyAr, TYPE testElement) {
+// Contains
+// O(log n)
+int orderedArrayContains (struct dynArr *dyAr, TYPE testElement) {
 	assert(dyAr != null)
 	int index = _binarySearch(dyAr->data, dyAr->size, newElement);
-	return(dyAr->data[index] = testElement);
+	return(dyAr->data[index] == testElement);
 }
 //**************************************
-void orderedArrayRemove (struct dyArray *dyAr, TYPE testElement) {
+// Remove
+// O(n) 
+void orderedArrayRemove (struct dynArr *dyAr, TYPE testElement) {
 	assert(dyAr != null)
 	int index = _binarySearch(dyAr->data, dyAr->size, newElement);
- 	dyArrayRemoveAt (dyAr, index, newElement);
+ 	removeAtDynArr(dyAr, index);
 }
 //------------------------------------------------------------------------------
 /*
@@ -330,6 +339,7 @@ TYPE topDynArray (struct DynArr * dyAr) {
 				createDynArr
 */
 //------------------------------------------------------------------------------
+// Deque structure
 struct deque {
 	TYPE * data;
  	int capacity;
@@ -337,26 +347,27 @@ struct deque {
  	int start;		// needed due to wrapping
 };
 //**************************************
+// Initialize
 void dequeInit (struct deque *dyAr, int initCapacity) {
  	dyAr->size = dyAr->start = 0;
- 	dyAr->capacity = initCapacity; assert(initCapacity > 0);
- 	dyAr->data = (TYPE *) malloc(initCapacity * sizeof(TYPE));
+ 	dyAr->capacity = initCapacity; 
+ 	assert(initCapacity > 0);
+ 	dyAr->data = (TYPE *) malloc(sizeof(TYPE) * initCapacity);
  	assert(dyAr->data != NULL);
 }
 //**************************************
-void _dequeSetCapacity (struct deque *d, int newCap) {
-	int i;
-	
+// Set new capacity
+// O(n)
+void _dequeSetCapacity (struct deque *d, int newCap) {	
 	/* Create a new underlying array*/
 	TYPE *newData = (TYPE*)malloc(sizeof(TYPE)*newCap);
 	assert(newData != 0);
 	
-	/* copy elements to it */
+	// Copy elements to new array; Reorganzies array to start from index = 0 (i)
 	int j = d->start;
-	for(i = 0; i <  d->size; i++)
-	{
+	for(int i = 0; i <  d->size; i++){
 		newData[i] = d->data[j];
-		j = j + 1;
+		j++;
 		if(j >= d->capacity)
 			j = 0;
 	}
@@ -369,126 +380,142 @@ void _dequeSetCapacity (struct deque *d, int newCap) {
 	d->start = 0;
 }
 //**************************************
-void dequeInit (struct deque *d, int initCapacity) {
-	d->size = d->start = 0;
-	d->capacity = initCapacity; assert(initCapacity > 0);
-	d->data = (TYPE *) malloc(initCapacity * sizeof(TYPE));
-	assert(d->data != 0);
-}
-//**************************************
+// Return deque size
+// O(n)
 int dequeSize (struct deque *dyAr) {
 	return dyAr->size;
 }
 //**************************************
-void _dequeSetCapacity (struct deque *dyAr, int newCap) {
-	int i;
-	/* Create a new underlying array*/
-	TYPE *newData = (TYPE*)malloc(sizeof(TYPE)*newCap);
-	assert(newData != NULL);
-	/* Copy elements to new array */
-	int j = dyAr->start;
-		for(i = 0; i < dyAr->size; i++) {
-			newData[i] = dyAr->data[j];
-			j++;
-			if(j >= dyAr->capacity)
-			j = 0;
-		}
-	/*  Delete the old array*/
-	free(dyAr->data);
-	/* update capacity and size and data*/
-	dyAr->data = newData;
-	dyAr->capacity = newCap;
-	dyAr->beg = 0;
-}
-//**************************************
+// Add to the front of the deque
+// O(1)+
 void dequeAddFront (struct deque *dyAr, TYPE newValue) {
 	if (dyAr->size >= dyAr->capacity)
 		_dequeSetCapacity(dyAr, 2 * dyAr->capacity);
 
-	if (start == 0){
-		dyAr->data[capacity - 1] = newValue;
-		start = capacity - 1
-	}
-	else {
+	// if the array starts after index 0
+	if {
 		dyAr->data[start - 1] = newValue
 		start--
 	}
+	// else if the start is at index 0, add to the back of the array
+	else if (dyAr->start == 0 && dyAr->size > 0){
+		dyAr->data[capacity - 1] = newValue;
+		start = capacity - 1
+	}
+
+	// else this is the first entry
+	else if (dyAr->start == 0 && dyAr->size == 0)
+		dyAr->data[start] = newValue;
+
 	size++;
 }
 //**************************************
+// Add to the bacK of the deque
+// O(1)+
 void dequeAddBack (struct deque *dyAr, TYPE newValue) {
 	int index;
+	// If it's full, increase capacity
 	if (dyAr->size >= dyAr->capacity)
 		_dequeSetcapacity(dyAr, 2 * dyAr->capacity);
-	index = dyAr->start + dyAr->size;			// empty position after element at the back of the deque
+	// The logical index of the empty position at the back of the deque
+	index = dyAr->start + dyAr->size;			
 		if (index >= dyAr->capacity)
+			// Wrap the index to the front if the logical index is greater than capacity
 			index -= dyAr->capacity;
 	dyAr->data[index] = newValue;
 	dyAr->size++;
 }
 //**************************************
+// Return the front of the deque
+// O(1)
 TYPE dequeFront (struct deque *dyAr) {
-	if (size > 0)
-		return dyAr->data[start];
+	assert(dryAr->size > 0)
+	return dyAr->data[start];
 }
 //**************************************
+// Free the deque data and reset properties
+// O(1)
 void dequeFree (struct deque *dyAr) {
- 	free(dyAr->data);
+ 	if(dyAr->data != 0)
+ 		free(dyAr->data);
  	dyAr->size = 0;
  	dyAr->capacity = 0;
+ 	dyAr->start = 0;
 }
 //**************************************
+// Return the back of the deque
+// O(1)
 TYPE dequeBack (struct deque *dyAr) {
-	int index = dyAr->start + dyAr->size -1;		// element at the back of the deque
+	// element at the back of the deque
+	int index = dyAr->start + dyAr->size -1;		
 	if (index > dyAr->capacity)
+		// Wrap the index
 		index -= dyAr->capacity;
 	return dyAr->data[index];
 }
 //**************************************
+// Remove the front of the deque
+// O(1)
 void dequeRemoveFront (struct deque *dyAr) {
-	if (dyAr->size > 0){
-		dyAr->start += 1
-		dyAr->size -= 1;
-	}
+	Assert(dyAr->size > 0);
+	dyAr->start += 1;
+	dyAr->size -= 1;
 }
 //**************************************
+// Remove the back of the deque
+// O(1)
 void dequeRemoveBack (struct deque *dyAr) {
-	if (dyAr->size > 0)
-		dyAr-size -= 1;
+	assert(dyAr->size > 0);
+	dyAr-size -= 1;
 }
 //------------------------------------------------------------------------------
 
 // @IteratorDynamicArray
 
 //------------------------------------------------------------------------------
+// Iterator Structure
 struct dynArrayIterator {
    struct dynArray * dyAr;
    int currentIndex;
 };
-
+//**************************************
+// Initialize
 void dynArrayIteratorInit (struct dynArray *dyAr, struct dynArrayIterator *itr) {
 	itr->dynArray = dyAr;
-	itr->currentIndex = dyAr->data[0];
+	itr->currentIndex = 0;
 }
-
+//**************************************
+// Create the iterator
+struct DynArrIter *createDynArrIter(struct DynArr *dyAr){
+	struct DynArrIter *newItr = malloc(sizeof(struct DynArrIter));
+	assert(newItr != 0);
+	initDynArrIter(dyAr, newItr);
+	return(newItr);
+}
+//**************************************
+// If iterator has next, sets iterator index to next index
+// O(1)
 int dynArrayIteratorHasNext (struct dynArrayIterator *itr) {
 	if(itr->dyAr->data[currentIndex]+1) != dyAr->capacity){
-			itr->dyAr->data[currentIndex] += 1;
+			itr->dyAr->data[currentIndex]++;
 			return(1);
 		}
 		else
 		 	return(0);
 }
-
+//**************************************
+// Returns the value of the next element
+// O(1)
 TYPE dynArrayIteratorNext (struct dynArrayIterator *itr) {
 	return(itr->dyAr->data[currentIndex]);
 }
-
+//**************************************
+// Removes the element at the current index
+// O(n)
 void dynArrayIteratorRemove (struct dynArrayIterator *itr) {
 	removeAtDynArr(itr->dyAr, itr->currentIndex);
-	itr->currentIndex  -= 1;
+	itr->currentIndex--;
 }
-
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 // @LINKED LIST ----------------------------------------------------------------
@@ -509,50 +536,62 @@ struct listStack {
 	struct Link *firstLink;
 }
 //**************************************
+// Initialize
 struct listStackInit (listStack s) {
 	s->firstLink = 0;
 }
 //**************************************
+// Create a stackLL
 struct listStack *createLinkedList(){
 	struct listStack *newList = malloc(sizeof(struct listStack));
 	_initList(newList);
 	return(newList);
 }
-
-void pushListStack(struct listStack *s, TYPE val){
+//**************************************
+// Pushes a link onto the stack
+void pushStackLL(struct listStack *s, TYPE val){
 	struct Link *newLink = (struct Link *) malloc(sizseof(struct Link));		// allocate a new Link
 	assert(newLink != NULL);
-	newLink->val = val;										// set newLink value
-	newLink->next = s->firstLink;				// set newLink pointer to what firstLink was pointing to (next link or 0)
-	s->firstLink = newLink;							// change newLink to point to  newLink
+	newLink->val = val;							// set newLink value
+	newLink->next = s->firstLink;				// set newLink->nextointer to what firstLink is pointing to (next link in the stack or 0)
+	s->firstLink = newLink;						// change firstLink to point to newLink
 }
 //**************************************
+// Return stack top value
 TYPE linkedListStackTop (struct linkedListStack *s) {
-	if(s->firstLink != NULL)
-		return s->firstLink->value;
-	return NULL;
+	assert(!isEmptyLinkedList(l));
+  	return l->firstLink->val;
+
 }
 //**************************************
-void linkedListStackPop (struct linkedListStack *s) {
-	if(s->firstLink != NULL){
-		struct link* temp = s->firstLink;		// create temporary link to point at what firstLink points to
-		s->firstLink = temp->next;					// reassign firstLink to what firstLink was pointing to n
-		free(temp);													// free the address that firstLink was pointing to
+// Removes stop of stack
+void popStackLL (struct linkedListStack *s) {
+	assert(!isEmptyLinkedList(l));
+	struct link* temp = s->firstLink;		// create temporary link to point at what firstLink points to
+	s->firstLink = temp->next;				// reassign firstLink to what firstLink was pointing to n
+	free(temp);								// free the address that firstLink was pointing to
 	}
 }
 //**************************************
-void linkedListStackFree (struct linkedListStack *s) {
+// Frees all links but keeps firstLink, so list still exists and remains intialized
+// O(n)
+void freeStackLL (struct linkedListStack *s) {
 	while (!linkedListStackIsEmpty(s))
-		linkedListStackPop(s);
+		popStackLL(s);
 }
 //**************************************
-int linkedListStackIsEmpty (struct linkedListStack *s) {
-
-	if(s->firstLink != NULL)
-		return 1;
-	return 0;
+// Deletes the stackLL
+// O(n)
+void deleteStackLL(struct LinkedList *s){
+	_freeLinkedList(l);
+	free(l);
 }
-
+//**************************************
+// Is empty?
+// O(1)
+int isEmptyStackLL (struct linkedListStack *s) {
+	return (s->firstLink != NULL);
+}
 //------------------------------------------------------------------------------
 
 // @QueueLinkedList
@@ -978,6 +1017,7 @@ struct linkedListIter createLLI(struct linkedList *lst){
 }
 //**************************************
 // Has next link to traverse? Set current link to next
+// O(1)
 int hasNextLinkedListIter(struct linkedListIter *itr){
 	 if(itr->cur->next != itr->lst->lastLink){
 		 itr->cur = itr->cur->next;
