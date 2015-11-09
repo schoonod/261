@@ -723,7 +723,7 @@ int linkedListContains (struct linkedList *lst, TYPE e) {
 }
 //------------------------------------------------------------------------------
 /*
-		@DequeueDoublyLinkedList
+		@DequeuDoublyLinkedList
 			uses:
 				DoublyLinkedList
 						dLink (constructor)
@@ -1173,8 +1173,6 @@ struct Node *  _nodeRemoveBST (struct Node * current, TYPE d) {
 	return current;
 }
 //**************************************
-
-//**************************************
 /*  nodeRemoveBST concept
 	Node remove is a function that removes the desired node by traversing the tree until found, and replaces
 		that Node with the leftmost child of the right child, of that node. This leftmost child is used because it is
@@ -1202,12 +1200,161 @@ Node remove (Node start, E testValue)
  	--> it's former spot that it moved from has also been freed
  	--> and 
 */
+//------------------------------------------------------------------------------
+
+// @AVL Tree
+
+//------------------------------------------------------------------------------
+// AVL node Struct
+struct AVLnode {
+	TYPE value;
+	struct AVLnode *left;
+	struct AVLnode *right;
+	int height;
+};
 //**************************************
+// Height-balanced binary search tree
+struct AVLTree {
+	struct AVLNode *root;
+	int count;
+}
+//**************************************
+// Initialize
+void initAVL(struct AVLTree *tree){
+	tree->root = 0;
+	tree->count = 0;
+}
+//**************************************
+// Create the tree
+struct AVLTree *tree(){
+	struct AVL *tree = (struct AVLTree *)malloc(sizeof(struct AVLTree));
+	assert(tree != 0);
+	initAVL(tree);
+	return tree;
+}
+//**************************************
+// Return height of node
+int _h(struct AVLnode * current) {
+	if (current == 0) 
+		return -1;  
+	return 
+		current->height;
+}
+
+//**************************************
+// Set height of node, assuming height of child nodes is known
+void _setHeight (struct AVLnode * current) {
+	int lch = h(current->left);
+	int rch = h(current->right);
+	if (lch < rch) current->height = 1 + rch;
+	else current->height = 1 + lch;
+}
+ //**************************************
+// Add a node then balance balance the tree
+struct AVLnode * _AVLnodeAdd (struct AVLnode* current, TYPE newValue) {
+	struct AVLnode * newnode;
+	if (current == 0) {
+		newnode = (struct AVLnode *) malloc(sizeof(struct AVLnode));
+		assert(newnode != 0);
+		newnode->value = newValue;
+		newnode->left = newnode->right = 0;
+		return newnode; 
+	} 
+	else if (LT(newValue, current->value))
+		current->left = AVLnodeAdd(current->left, newValue);
+	else 
+		current->right = AVLnodeAdd(current->right, newValue);
+
+	return balance(current);
+}
+//**************************************
+// Balance Factor
+int _bf (struct AVLnode * current) { 
+	return h(current->right) - h(current->left); 
+}
+// Balance Functino
+ struct AVLnode * _balance (struct AVLnode * current) {
+      int cbf = bf(current);
+      if (cbf < -1) {
+         if (bf(current->left) > 0) // double rotation
+            current->left = rotateLeft(current->left);
+         return rotateRight(current); // single rotation
+      } else if (cbf > 1) {
+         if (bf(current->right) < 0)
+            current->right = rotateRight(current->right);
+         return rotateLeft(current);
+      }
+      setHeight(current);
+      return current;
+   }
+//**************************************
+// Rotate the current tree left
+struct AVLnode * _rotateLeft (struct AVLnode * current) {
+	struct AVLnode *pivot = current->right;
+	current->right = pivot->left;
+	pivot->left = current;
+	current = pivot;
+	_setHeight(current->left);
+	_setHeight(current);
+	return current;
+}
+//**************************************
+// Rotate the current tree right
+struct AVLnode * _rotateRight (struct AVLnode * current) {
+	struct AVLnode *pivot = current->left;
+	current->left = pivot -> right;
+	pivot->right = current;
+	current = pivot;
+	_setHeight(current->right);
+	_setHeight(current);
+	return current;
+}
+//**************************************
+// Remove a value from the tree
+void removeAVLTree(struct AVLTree *tree, TYPE val) {
+   if (containsAVLTree(tree, val)) {
+      tree->root = _removeNode(tree->root, val);
+      tree->cnt--;
+   }
+}
+
+TYPE _leftMost(struct AVLNode *cur) {
+   while(cur->left != 0) {
+      cur = cur->left;
+   }
+    return cur->val;
+}
+
+struct AVLNode *_removeLeftmost(struct AVLNode *cur) {
+	struct AVLNode *temp;
+
+   if(cur->left != 0)
+   {
+      cur->left = _removeLeftmost(cur->left);
+      return _balance(cur);
+   }
+
+   temp = cur->rght;
+   free(cur);
+   return temp;
+}
+
+struct AVLNode *_removeNode(struct AVLNode *cur, TYPE val) {
+	assert(cur != NULL);
+
+	if(cur->value == val){
+		cur->value = _leftMost(cur->right);
+		_removeLeftmost(cur->right);
+	} else if (val > cur->value) {
+		_removeNode(cur->right, val);
+	} else if (val < cur->value){
+		_removeNode(cur->left, val);
+	}
+return  _balance(cur);
 
 //**************************************
 
 //**************************************
-
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 // @SORTING --------------------------------------------------------------------
