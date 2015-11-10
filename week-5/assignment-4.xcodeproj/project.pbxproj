@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3539775B1BF00A33002D71ED /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 3539775A1BF00A33002D71ED /* main.c */; };
 		353977651BF00B50002D71ED /* bst.c in Sources */ = {isa = PBXBuildFile; fileRef = 353977611BF00B50002D71ED /* bst.c */; };
 		353977661BF00B50002D71ED /* compare.c in Sources */ = {isa = PBXBuildFile; fileRef = 353977631BF00B50002D71ED /* compare.c */; };
 		353977671BF00B50002D71ED /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 353977641BF00B50002D71ED /* main.c */; };
@@ -27,11 +26,11 @@
 
 /* Begin PBXFileReference section */
 		353977571BF00A33002D71ED /* assignment-4 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "assignment-4"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3539775A1BF00A33002D71ED /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		353977611BF00B50002D71ED /* bst.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bst.c; path = posted/bst.c; sourceTree = "<group>"; };
 		353977621BF00B50002D71ED /* bst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bst.h; path = posted/bst.h; sourceTree = "<group>"; };
 		353977631BF00B50002D71ED /* compare.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = compare.c; path = posted/compare.c; sourceTree = "<group>"; };
 		353977641BF00B50002D71ED /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = posted/main.c; sourceTree = "<group>"; };
+		353977681BF05AA8002D71ED /* structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = structs.h; path = posted/structs.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,10 +64,10 @@
 			isa = PBXGroup;
 			children = (
 				353977611BF00B50002D71ED /* bst.c */,
-				353977621BF00B50002D71ED /* bst.h */,
 				353977631BF00B50002D71ED /* compare.c */,
+				353977681BF05AA8002D71ED /* structs.h */,
+				353977621BF00B50002D71ED /* bst.h */,
 				353977641BF00B50002D71ED /* main.c */,
-				3539775A1BF00A33002D71ED /* main.c */,
 			);
 			path = "assignment-4";
 			sourceTree = "<group>";
@@ -131,7 +130,6 @@
 			files = (
 				353977671BF00B50002D71ED /* main.c in Sources */,
 				353977661BF00B50002D71ED /* compare.c in Sources */,
-				3539775B1BF00A33002D71ED /* main.c in Sources */,
 				353977651BF00B50002D71ED /* bst.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,6 +249,7 @@
 				353977601BF00A33002D71ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
