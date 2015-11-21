@@ -109,7 +109,7 @@ void setCapDynArr(struct DynArr *dyAr, int newCap) {
 //**************************************
 // ADD a value to the end of the array
 // O(1)+
-void addVal(struct DynArr *dyAr, TYPE val) {
+void dyArrayAdd(struct DynArr *dyAr, TYPE val) {
 	assert(dyAr != 0);
 	if(dyAr->size >= dyAr->capacity)
 		setCapDynArr(dyAr, 2 * dyAr->capacity);
@@ -158,7 +158,7 @@ void removeAtDynArr (struct DynArr * dyAr, int index) {
 	for(int i = index; i < dyAr->size; i++) {
     	dyAr->data[i] = dyAr->data[i+1];
   	}
-  	dyAr->size = dyAr->size - 1;
+  	dyAr->size--;
 }
 //*******************************************************************
 // @ORDEREDDynamicArray
@@ -553,7 +553,7 @@ void pushStackLL(struct listStack *s, TYPE val){
 	struct Link *newLink = (struct Link *) malloc(sizseof(struct Link));		// allocate a new Link
 	assert(newLink != NULL);
 	newLink->val = val;							// set newLink value
-	newLink->next = s->firstLink;				// set newLink->nextointer to what firstLink is pointing to (next link in the stack or 0)
+	newLink->next = s->firstLink;				// set newLink->next to what firstLink is pointing to (next link in the stack or 0)
 	s->firstLink = newLink;						// change firstLink to point to newLink
 }
 //**************************************
@@ -694,7 +694,7 @@ void linkedListInit (struct linkedList *lst) {
 //**************************************
 void addList(struct linkedList *lst, TYPE v){
 	assert(lst != NULL);
-	_addLinkBefore(lst, lst->lastLink, v);
+	_addBefore(lst, lst->lastLink, v);
 }
 //**************************************
 void removeList (struct linkedList *lst, TYPE e) {
