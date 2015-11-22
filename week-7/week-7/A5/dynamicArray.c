@@ -16,15 +16,13 @@ struct DynArr
 ************************************************************************ */
 
 /* Initialize (including allocation of data array) dynamic array.
-
 	param: 	v		pointer to the dynamic array
 	param:	cap 	capacity of the dynamic array
 	pre:	v is not null
 	post:	internal data array can hold capacity elements
 	post:	v->data is not null
 */
-void _initDynArr(DynArr *v, int capacity)
-{
+void _initDynArr(DynArr *v, int capacity){
 	assert(capacity > 0);
 	assert(v!= 0);
 	v->data = malloc(sizeof(TYPE) * capacity);
@@ -35,37 +33,32 @@ void _initDynArr(DynArr *v, int capacity)
 }
 
 /* Allocate and initialize dynamic array.
-
 	param:	cap 	desired capacity for the dyn array
 	pre:	none
 	post:	none
 	ret:	a non-null pointer to a dynArr of cap capacity
 			and 0 elements in it.
 */
-DynArr* createDynArr(int cap)
-{
+DynArr* createDynArr(int cap){
 	DynArr *r;
 	assert(cap > 0);
-	r = malloc(sizeof( DynArr));
+	r = malloc(sizeof(DynArr));
 	assert(r != 0);
 	_initDynArr(r,cap);
 	return r;
 }
 
 /* Deallocate data array in dynamic array.
-
 	param: 	v		pointer to the dynamic array
 	pre:    v is not null
 	post:	d.data points to null
 	post:	size and capacity are 0
 	post:	the memory used by v->data is freed
 */
-void freeDynArr(DynArr *v)
-{
+void freeDynArr(DynArr *v){
 	assert(v!=0);
 
-	if(v->data != 0)
-	{
+	if(v->data != 0){
 		free(v->data); 	/* free the space on the heap */
 		v->data = 0;   	/* make it point to null */
 	}
@@ -74,28 +67,24 @@ void freeDynArr(DynArr *v)
 }
 
 /* Deallocate data array and the dynamic array ure.
-
 	param: 	v		pointer to the dynamic array
 	pre:	v is not null
 	post:	the memory used by v->data is freed
 	post:	the memory used by d is freed
 */
-void deleteDynArr(DynArr *v)
-{
+void deleteDynArr(DynArr *v){
 	assert (v!= 0);
 	freeDynArr(v);
 	free(v);
 }
 
 /* Resizes the underlying array to be the size cap
-
 	param: 	v		pointer to the dynamic array
 	param:	cap		the new desired capacity
 	pre:	v is not null
 	post:	v has capacity newCap
 */
-void _dynArrSetCapacity(DynArr *v, int newCap)
-{
+void _dynArrSetCapacity(DynArr *v, int newCap){
 	int i;
 	TYPE *oldData;
 	int oldSize = v->size;
@@ -121,9 +110,7 @@ void _dynArrSetCapacity(DynArr *v, int newCap)
 	assert(newData != 0);
 
 	/* copy elements to it */
-
-	for(i = 0; i < v->size; i++)
-	{
+	for(i = 0; i < v->size; i++){
 		newData[i] = v->data[i];
 	}
 
@@ -136,14 +123,12 @@ void _dynArrSetCapacity(DynArr *v, int newCap)
 }
 
 /* Get the size of the dynamic array
-
 	param: 	v		pointer to the dynamic array
 	pre:	v is not null
 	post:	none
 	ret:	the size of the dynamic array
 */
-int sizeDynArr(DynArr *v)
-{
+int sizeDynArr(DynArr *v){
 	assert(v!=0);
 	return v->size;
 }
@@ -157,11 +142,9 @@ int sizeDynArr(DynArr *v)
 	post:	if reached capacity, capacity is doubled
 	post:	val is in the last utilized position in the array
 */
-void addDynArr(DynArr *v, TYPE val)
-{
+void addDynArr(DynArr *v, TYPE val){
 
 	assert(v!=0);
-
 	/* Check to see if a resize is necessary */
 	if(v->size >= v->capacity)
 		_dynArrSetCapacity(v, 2 * v->capacity);
@@ -172,7 +155,6 @@ void addDynArr(DynArr *v, TYPE val)
 }
 
 /*	Get an element from the dynamic array from a specified position
-
 	param: 	v		pointer to the dynamic array
 	param:	pos		integer index to get the element from
 	pre:	v is not null
@@ -193,7 +175,6 @@ TYPE getDynArr(DynArr *v, int pos)
 
 /*	Put an item into the dynamic array at the specified location,
 	overwriting the element that was there
-
 	param: 	v		pointer to the dynamic array
 	param:	pos		the index to put the value into
 	param:	val		the value to insert
@@ -202,8 +183,7 @@ TYPE getDynArr(DynArr *v, int pos)
 	pre:	pos >= 0 and pos < cap of the array
 	post:	index pos contains new value, val
 */
-void putDynArr(DynArr *v, int pos, TYPE val)
-{
+void putDynArr(DynArr *v, int pos, TYPE val){
 	assert(v!=0);
 	assert(pos < v->size);
 	assert(pos >= 0);
@@ -219,8 +199,7 @@ void putDynArr(DynArr *v, int pos, TYPE val)
 	pre:	i, j >= 0 and i,j < size of the dynamic array
 	post:	index i now holds the value at j and index j now holds the value at i
 */
-void swapDynArr(DynArr *v, int i, int  j)
-{
+void swapDynArr(DynArr *v, int i, int  j){
 	TYPE  temp;
 	assert(v!=0);
 	assert(i < v->size);
@@ -231,10 +210,9 @@ void swapDynArr(DynArr *v, int i, int  j)
 	temp = v->data[i];
 	v->data[i] = v->data[j];
 	v->data[j] = temp;
-
 }
-/* Inserts an element into the dynamic array at the specified location
 
+/* Inserts an element into the dynamic array at the specified location
    param: v         pointer to the dynamic array
    param: idx       location to insert
    param:  val      value to insert
@@ -244,8 +222,7 @@ void swapDynArr(DynArr *v, int i, int  j)
    post:            element at idx  =  value
 */
 
-void addAtDynArr(DynArr *v, int idx, TYPE val)
-{
+void addAtDynArr(DynArr *v, int idx, TYPE val){
   assert(v!= 0);
   assert(idx >=0 && idx <= v->size);
 
@@ -255,7 +232,7 @@ void addAtDynArr(DynArr *v, int idx, TYPE val)
   if(v->size >= v->capacity)
     _dynArrSetCapacity(v, 2 * v->capacity);
 
-  //Move elements down one
+  //Move elements up one
   for(i = v->size; i > idx; i--)
     v->data[i] = v->data[i-1];
 
@@ -284,8 +261,7 @@ void removeAtDynArr(DynArr *v, int idx){
 	assert(idx < v->size);
 	assert(idx >= 0);
 
-   //Move all elements up
-
+   //Move all elements down
 	/* My loop does not execute when idx == size-1
 	 * so I don't have to worry about coping an element outside the array
 	 * into that idx!
@@ -295,7 +271,6 @@ void removeAtDynArr(DynArr *v, int idx){
    }
 
    v->size--;
-
 }
 
 /*	Returns boolean (encoded in an int) demonstrating whether or not the
@@ -306,8 +281,7 @@ void removeAtDynArr(DynArr *v, int idx){
 	post:	none
 	ret:	>0  if empty, otherwise 0
 */
-int isEmptyDynArr(DynArr *v)
-{
+int isEmptyDynArr(DynArr *v){
 	assert(v!= 0);
 	return !(v->size);
 	/* alternatively:
@@ -317,9 +291,6 @@ int isEmptyDynArr(DynArr *v)
 	else return 0;
 
 	*/
-
-
-
 }
 
 
