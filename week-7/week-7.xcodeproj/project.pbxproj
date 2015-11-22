@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		350D47FA1C004C20001406EA /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 350D47F91C004C20001406EA /* main.c */; };
 		350D48071C005318001406EA /* dynamicArray.c in Sources */ = {isa = PBXBuildFile; fileRef = 350D48001C005318001406EA /* dynamicArray.c */; };
 		350D48081C005318001406EA /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 350D48021C005318001406EA /* main.c */; };
 		350D48091C005318001406EA /* main2.c in Sources */ = {isa = PBXBuildFile; fileRef = 350D48031C005318001406EA /* main2.c */; };
@@ -28,7 +27,6 @@
 
 /* Begin PBXFileReference section */
 		350D47F61C004C1F001406EA /* week-7 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "week-7"; sourceTree = BUILT_PRODUCTS_DIR; };
-		350D47F91C004C20001406EA /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		350D48001C005318001406EA /* dynamicArray.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dynamicArray.c; path = A5/dynamicArray.c; sourceTree = "<group>"; };
 		350D48011C005318001406EA /* dynamicArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dynamicArray.h; path = A5/dynamicArray.h; sourceTree = "<group>"; };
 		350D48021C005318001406EA /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = A5/main.c; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 				350D48041C005318001406EA /* toDoList.c */,
 				350D48051C005318001406EA /* toDoList.h */,
 				350D48061C005318001406EA /* type.h */,
-				350D47F91C004C20001406EA /* main.c */,
 			);
 			path = "week-7";
 			sourceTree = "<group>";
@@ -136,7 +133,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				350D47FA1C004C20001406EA /* main.c in Sources */,
 				350D48071C005318001406EA /* dynamicArray.c in Sources */,
 				350D48081C005318001406EA /* main.c in Sources */,
 				350D480A1C005318001406EA /* toDoList.c in Sources */,
@@ -259,6 +255,7 @@
 				350D47FF1C004C20001406EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

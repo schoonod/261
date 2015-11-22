@@ -10,7 +10,7 @@ struct Task {
 	int priority;			  			/* task priority */
 };
 
-typedef  struct Task* TaskP;
+typedef struct Task* TaskP;
 
 
 TaskP createTask (int priority, char *desc);
