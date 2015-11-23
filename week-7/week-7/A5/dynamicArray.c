@@ -1,3 +1,10 @@
+/*
+ Dane Schoonover
+ 261-400
+ Programming Assignment #5
+ Heap Implementation of to-do list
+*/
+
 /*	dynArr.c: Dynamic Array implementation. */
 #include <assert.h>
 #include <stdlib.h>

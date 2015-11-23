@@ -1,3 +1,9 @@
+/*
+ Dane Schoonover
+ 261-400
+ Programming Assignment #5
+ Heap Implementation of to-do list
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
