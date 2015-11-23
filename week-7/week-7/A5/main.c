@@ -26,7 +26,7 @@ int main(int argc, const char * argv[]){
                "'r' to remove the first task\n"
                "'p' to print the list\n"
                "'e' to exit the program\n"
-               );
+        );
         /* get input command (from the keyboard) */
         cmd = getchar();
         /* clear the trailing newline character */
@@ -35,7 +35,7 @@ int main(int argc, const char * argv[]){
         
         int priority;
         FILE *file;
-        char desc[TYPE_SIZE], filename[100], *nlptr;
+        char desc[TASK_DESC_SIZE], filename[100], *nlptr;
 
         
         while (getchar() != '\n');
@@ -93,19 +93,17 @@ int main(int argc, const char * argv[]){
             // Add task
             case 'a':
                 printf("Enter the task description: ");
-                if (fgets(desc, sizeof(desc), stdin) != NULL)
-                {
+                if (fgets(desc, sizeof(desc), stdin) != NULL){
                     nlptr = strchr(desc, '\n');
                     if (nlptr)
                         *nlptr = '\0';
                 }
                 do {
-                    printf("Please enter the task priority (0-999): ");
+                    printf("Enter the task priority (0-999): ");
                     scanf("%d", &priority);
                 } while (!(priority >= 0 && priority <= 999));
                 
                 while (getchar() != '\n');
-                
                 /* create task and add the task to the heap */
                 newTask = createTask(priority, desc);
                 addHeap(mainList, newTask, compare);

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		350D48071C005318001406EA /* dynamicArray.c in Sources */ = {isa = PBXBuildFile; fileRef = 350D48001C005318001406EA /* dynamicArray.c */; };
 		350D48081C005318001406EA /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 350D48021C005318001406EA /* main.c */; };
-		350D48091C005318001406EA /* main2.c in Sources */ = {isa = PBXBuildFile; fileRef = 350D48031C005318001406EA /* main2.c */; };
 		350D480A1C005318001406EA /* toDoList.c in Sources */ = {isa = PBXBuildFile; fileRef = 350D48041C005318001406EA /* toDoList.c */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +29,6 @@
 		350D48001C005318001406EA /* dynamicArray.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dynamicArray.c; path = A5/dynamicArray.c; sourceTree = "<group>"; };
 		350D48011C005318001406EA /* dynamicArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dynamicArray.h; path = A5/dynamicArray.h; sourceTree = "<group>"; };
 		350D48021C005318001406EA /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = A5/main.c; sourceTree = "<group>"; };
-		350D48031C005318001406EA /* main2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main2.c; path = A5/main2.c; sourceTree = "<group>"; };
 		350D48041C005318001406EA /* toDoList.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = toDoList.c; path = A5/toDoList.c; sourceTree = "<group>"; };
 		350D48051C005318001406EA /* toDoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = toDoList.h; path = A5/toDoList.h; sourceTree = "<group>"; };
 		350D48061C005318001406EA /* type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = type.h; path = A5/type.h; sourceTree = "<group>"; };
@@ -69,7 +67,6 @@
 				350D48001C005318001406EA /* dynamicArray.c */,
 				350D48011C005318001406EA /* dynamicArray.h */,
 				350D48021C005318001406EA /* main.c */,
-				350D48031C005318001406EA /* main2.c */,
 				350D48041C005318001406EA /* toDoList.c */,
 				350D48051C005318001406EA /* toDoList.h */,
 				350D48061C005318001406EA /* type.h */,
@@ -136,7 +133,6 @@
 				350D48071C005318001406EA /* dynamicArray.c in Sources */,
 				350D48081C005318001406EA /* main.c in Sources */,
 				350D480A1C005318001406EA /* toDoList.c in Sources */,
-				350D48091C005318001406EA /* main2.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,7 +175,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -216,7 +212,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};

@@ -516,10 +516,8 @@ void addHeap(DynArr *heap, TYPE val, comparator compare){
     int parent;
     int pos = sizeDynArr(heap);
     addDynArr(heap, val);
-    
     while(pos != 0){
         parent = (pos-1)/2;
-    
         if((*compare)(getDynArr(heap, pos), getDynArr(heap, parent)) == -1){
             swapDynArr(heap, parent, pos);
             pos = parent;
@@ -527,7 +525,6 @@ void addHeap(DynArr *heap, TYPE val, comparator compare){
         else
             return;
     }
-
 }
 
 /*	Adjust heap to maintain heap property
