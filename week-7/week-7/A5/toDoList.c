@@ -47,7 +47,6 @@ int compare(TYPE left, TYPE right){
 void print_type(TYPE val)
 {
     struct Task *v = (struct Task*) val;
-    
     printf("Task: %s  Priority: %d\n", v->description, v->priority);
 }
 
