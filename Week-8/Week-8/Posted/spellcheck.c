@@ -1,8 +1,16 @@
+/*
+ Dane Schoonover
+ 261-400
+ Programming Assignment #6
+ Hash Implementation of a Concordance
+*/
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <ctype.h>
 #include "hashMap.h"
 
 /*
@@ -40,10 +48,13 @@ int main (int argc, const char * argv[]) {
   while(!quit){
     printf("Enter a word: ");
     scanf("%s",word);
-    /*
-      ... spell checker code goes here ...
-      ... You write this               ...
-    */
+
+    if (atMap(hashTable, word) == NULL)
+        // If the word is not in the dictionary
+        printf("%s is not a word.\n", word);
+    else
+        // Word is in the dictionary
+        printf("%s is spelled correctly.\n", word);
     
     /* Don't remove this. It is used for grading*/
     if(strcmp(word,"quit")==0)
@@ -54,9 +65,17 @@ int main (int argc, const char * argv[]) {
   return 0;
 }
 
-void loadDictionary(FILE* file, struct hashMap* ht)
-{
-  /* You will write this*/
+void loadDictionary(FILE* file, struct hashMap* ht){
+    while (1){
+        char* word = getWord(file);
+        if (word == NULL)
+            break;
+        else{
+            insertMap(ht, word, 0);
+            free(word);
+            continue;
+        }
+    }
 }
 
 char* getWord(FILE *file)

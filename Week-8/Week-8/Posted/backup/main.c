@@ -1,9 +1,3 @@
-/*
- Dane Schoonover
- 261-400
- Programming Assignment #6
- Hash Implementation of a Concordance
-*/
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,11 +33,13 @@ int main (int argc, const char * argv[]) {
     if(argc == 2)
         filename = argv[1];
     else
-        filename = "input2.txt"; /*specify your input text file here*/
+        filename = "input1.txt"; /*specify your input text file here*/
     printf("opening file: %s\n", filename);
 	timer = clock();
 	hashTable = createMap(tableSize);	   
 	
+    
+    
     /*... concordance code goes here ...*/
     fileptr = fopen(filename, "r");
     
@@ -54,15 +50,15 @@ int main (int argc, const char * argv[]) {
         printf("File did not open\n");
     
     char* word;
-    int* occurrenceCount;
+    int* count;
     
     // Get word from file
     while ((word = getWord(fileptr))){
         // Check for word existence
         if (containsKey(hashTable, word)){
             // Increase the occurence count of the word (void*)
-            occurrenceCount = atMap(hashTable, word);
-            (*occurrenceCount)++;
+            count = atMap(hashTable, word);
+            (*count)++;
         }
         // DNE; insert into map
         else
@@ -87,6 +83,9 @@ int main (int argc, const char * argv[]) {
         }
     }
 	/*... concordance code ends here ...*/
+
+    
+    
     
 	printMap(hashTable);
 	timer = clock() - timer;

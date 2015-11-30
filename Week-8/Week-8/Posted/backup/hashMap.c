@@ -1,9 +1,3 @@
-/*
- Dane Schoonover
- 261-400
- Programming Assignment #6
- Hash Implementation of a Concordance
-*/
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

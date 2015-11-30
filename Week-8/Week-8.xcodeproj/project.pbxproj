@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		35B51C611C0AC013002DD26D /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 35B51C571C0AC013002DD26D /* main.c */; };
 		35B51C621C0AC013002DD26D /* hashMap.c in Sources */ = {isa = PBXBuildFile; fileRef = 35B51C581C0AC013002DD26D /* hashMap.c */; };
-		35B51C631C0AC013002DD26D /* spellcheck.c in Sources */ = {isa = PBXBuildFile; fileRef = 35B51C5D1C0AC013002DD26D /* spellcheck.c */; };
-		35B51C641C0AC013002DD26D /* makefile in Sources */ = {isa = PBXBuildFile; fileRef = 35B51C601C0AC013002DD26D /* makefile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,10 +31,8 @@
 		35B51C5A1C0AC013002DD26D /* Rubric.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Rubric.txt; path = Posted/Rubric.txt; sourceTree = "<group>"; };
 		35B51C5B1C0AC013002DD26D /* dictionary.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dictionary.txt; path = Posted/dictionary.txt; sourceTree = "<group>"; };
 		35B51C5C1C0AC013002DD26D /* input3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = input3.txt; path = Posted/input3.txt; sourceTree = "<group>"; };
-		35B51C5D1C0AC013002DD26D /* spellcheck.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = spellcheck.c; path = Posted/spellcheck.c; sourceTree = "<group>"; };
 		35B51C5E1C0AC013002DD26D /* input1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = input1.txt; path = Posted/input1.txt; sourceTree = "<group>"; };
 		35B51C5F1C0AC013002DD26D /* input2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = input2.txt; path = Posted/input2.txt; sourceTree = "<group>"; };
-		35B51C601C0AC013002DD26D /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; name = makefile; path = Posted/makefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,10 +71,8 @@
 				35B51C5A1C0AC013002DD26D /* Rubric.txt */,
 				35B51C5B1C0AC013002DD26D /* dictionary.txt */,
 				35B51C5C1C0AC013002DD26D /* input3.txt */,
-				35B51C5D1C0AC013002DD26D /* spellcheck.c */,
 				35B51C5E1C0AC013002DD26D /* input1.txt */,
 				35B51C5F1C0AC013002DD26D /* input2.txt */,
-				35B51C601C0AC013002DD26D /* makefile */,
 			);
 			path = "Week-8";
 			sourceTree = "<group>";
@@ -139,9 +133,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35B51C631C0AC013002DD26D /* spellcheck.c in Sources */,
 				35B51C621C0AC013002DD26D /* hashMap.c in Sources */,
-				35B51C641C0AC013002DD26D /* makefile in Sources */,
 				35B51C611C0AC013002DD26D /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +253,7 @@
 				35B51C481C0AB99C002DD26D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
